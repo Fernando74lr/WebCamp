@@ -152,6 +152,9 @@
 
 $(function() {
 
+    // Lettering
+    $('.nombre-sitio').lettering();
+
     // Programa de Conferencias
     $('.ocultar').hide();
     $('.programa-evento .info-curso:first').show();
