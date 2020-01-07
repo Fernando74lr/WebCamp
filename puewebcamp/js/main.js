@@ -155,6 +155,26 @@ $(function() {
     // Lettering
     $('.nombre-sitio').lettering();
 
+    // Menu fijo
+    var windowHeight = $(window).height();
+    var barraAltura = $('.barra').innerHeight();
+    $(window).scroll(function () {
+        var scroll = $(window).scrollTop();
+        if (scroll > windowHeight) {
+            $('.barra').addClass('fixed');
+            $('body').css({'margin-top':barraAltura+'px'});
+        }
+        else {
+            $('.barra').removeClass('fixed');
+            $('body').css({'margin-top':'0px'});
+        }
+    });
+    
+    // Menú responsivo
+    $('.menu-movil').on('click', function() {
+        $('.navegacion-principal').slideToggle();
+    });
+
     // Programa de Conferencias
     $('.ocultar').hide();
     $('.programa-evento .info-curso:first').show();
@@ -168,11 +188,18 @@ $(function() {
         return false;
     });
 
-    // Animaciones para los números
-    $('.resumen-evento li:nth-child(1) p').animateNumber({number : 6}, 1200);
-    $('.resumen-evento li:nth-child(2) p').animateNumber({number : 15}, 1200);
-    $('.resumen-evento li:nth-child(3) p').animateNumber({number : 3}, 1250);
-    $('.resumen-evento li:nth-child(4) p').animateNumber({number : 9}, 1500);
+    // Animaciones para los números (pasando los 2300 px de scroll, se hace la animación)
+    var stop = 0;
+    $(window).scroll(function () {
+        var scroll = $(window).scrollTop();
+        if (scroll >= 2300 && stop == 0) {
+            $('.resumen-evento li:nth-child(1) p').animateNumber({number : 6}, 1200);
+            $('.resumen-evento li:nth-child(2) p').animateNumber({number : 15}, 1200);
+            $('.resumen-evento li:nth-child(3) p').animateNumber({number : 3}, 1250);
+            $('.resumen-evento li:nth-child(4) p').animateNumber({number : 9}, 1500);
+            stop++;
+        }
+    });
 
     // Cuenta regresiva para la fecha del evento
     $('.cuenta-regresiva').countdown('2020/06/18 11:00:00', function (event) {

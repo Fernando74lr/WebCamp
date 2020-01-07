@@ -323,6 +323,13 @@ div.barra {
     background-color: #353535;
     padding: 20px 0;
 }
+.fixed {
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+}
 div.logo {
     width: 80%;
     float: left;
@@ -336,6 +343,10 @@ div.logo img {
     }  
 }
 /* Navegación Principal */
+nav.navegacion-principal {
+    display: none;
+    width:100%;
+}
 nav.navegacion-principal a {
     font-family: 'Oswald', sans-serif;
     color: #ffffff;
@@ -346,6 +357,7 @@ nav.navegacion-principal a {
     width: 100%;
     display: block;
     margin-bottom: 20px;
+    text-align: center;
 }
 nav.navegacion-principal a:hover {
     background-color: #fe4918;
@@ -442,6 +454,7 @@ nav.menu-programa a {
     position: relative;
     margin-bottom: 10px;
     border-bottom: 1px solid #fe4918;
+    padding-bottom: 10px;
 }
 .menu-programa a.activo::after {
     position: absolute;
