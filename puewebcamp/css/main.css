@@ -192,6 +192,45 @@ ul {
 .float-right {
     float: right;
 }
+/* Lettering */
+h1.nombre-sitio span {
+    position: relative;
+    text-shadow: 0 0 30px black;
+}
+
+@media only screen and (min-width:992px) {
+    .char1 {
+        top: 20px; right: 20px;
+    }
+    .char2 {
+        top: 20px; left: -20px;
+    }
+    .char3 {
+        top: 20px;right: 20px;
+    }
+    .char4 {
+        top: 20px; right: 10px;
+    }
+    .char5 {
+        top: 20px; right: 10px;
+    }
+    .char6 {
+        top: 20px; left: 10px;
+    }
+    .char7 {
+        top: 20px; left: 1px;
+    }
+    .char8 {
+        top: 20px; left: 10px;
+    }
+    .char9 {
+        top: 20px; right: -15px;
+    }
+    .char10 {
+        top: 20px; right: -15px;
+    }
+}
+
 /* Header */
 div.hero {
     background-image: url(../img/encabezado.jpg);
@@ -284,6 +323,13 @@ div.barra {
     background-color: #353535;
     padding: 20px 0;
 }
+.fixed {
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 2;
+}
 div.logo {
     width: 80%;
     float: left;
@@ -297,6 +343,10 @@ div.logo img {
     }  
 }
 /* Navegación Principal */
+nav.navegacion-principal {
+    display: none;
+    width:100%;
+}
 nav.navegacion-principal a {
     font-family: 'Oswald', sans-serif;
     color: #ffffff;
@@ -307,6 +357,7 @@ nav.navegacion-principal a {
     width: 100%;
     display: block;
     margin-bottom: 20px;
+    text-align: center;
 }
 nav.navegacion-principal a:hover {
     background-color: #fe4918;
@@ -403,6 +454,7 @@ nav.menu-programa a {
     position: relative;
     margin-bottom: 10px;
     border-bottom: 1px solid #fe4918;
+    padding-bottom: 10px;
 }
 .menu-programa a.activo::after {
     position: absolute;
@@ -732,9 +784,21 @@ p.copyright {
     padding: 10px 0;
     margin: 20px 0;
     text-align: center;
+    margin-bottom: 0px;
 }
 
 /**** INTERNAS ****/
+/* Conferencias */
+body.conferencia .navegacion-principal .activo {
+    border-bottom: 2px solid #fe4918;
+}
+.galeria {
+    padding-left: 40px;
+}
+.galeria a {
+    display: inline-block;
+    margin-bottom: 5px;
+}
 
 /* Registro */
 form.registro h3 {
