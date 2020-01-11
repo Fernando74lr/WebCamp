@@ -8,18 +8,19 @@
         // Mapa API con Leaflet
             /* Para cambiar la localización, cambia las coordenadas en 
             setView([x, y], zoom) y en marker. */
-        var map = L.map('mapa').setView([19.001811, -98.235315], 17);
+        if(document.getElementById('mapa')) {
+            var map = L.map('mapa').setView([19.001811, -98.235315], 17);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
 
-        L.marker([19.001811, -98.235315]).addTo(map)
-            .bindPopup('PUEWebCamp 2019 <br> Boletos ya disponibles.')
-            .openPopup()
-            .bindTooltip('Hey, I\'m helping')
-            .openTooltip();
-
+            L.marker([19.001811, -98.235315]).addTo(map)
+                .bindPopup('PUEWebCamp 2019 <br> Boletos ya disponibles.')
+                .openPopup()
+                .bindTooltip('Hey, I\'m helping')
+                .openTooltip();
+        }
         // Campos Datos Usuario
         var nombre = document.querySelector('#nombre');
         var apellido = document.querySelector('#apellido');
@@ -85,6 +86,7 @@
             email.addEventListener('blur', validarEmail);
 
             function calcularMontos(event) {
+                console.log("CLICK EN CALCULAR");
                 event.preventDefault();
                 if (regalo.value === '') {
                     alert("Debes elegir un regalo");
