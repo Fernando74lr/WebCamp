@@ -1,5 +1,6 @@
 <?php include_once 'includes/templates/header.php'; ?>
 
+
   <section class="seccion contenedor">
     <h2>
       La mejor conferencia de diseño web en español
