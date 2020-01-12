@@ -35,13 +35,18 @@
     <div class="calendario">
       <?php
       // 4.- Imprimir resultados.
-        $eventos = $resultado->fetch_assoc();
-      ?>
-      <pre>
+      /*
         <?php
-          var_dump($eventos);
+          echo $eventos['evento_id'] . '.- ' . $eventos['nombre_evento'] . '<br>';
         ?>
-      </pre>
+      */
+
+      // Imprimir todos los eventos - Forma deseada de hacerlo (while).
+        while($eventos = $resultado->fetch_assoc()) { ?>
+          <pre>
+            <?php var_dump($eventos); ?>
+          </pre>
+       <?php } ?>
     </div>
 
     <?php
