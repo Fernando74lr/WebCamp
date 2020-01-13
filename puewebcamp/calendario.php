@@ -30,7 +30,7 @@
         $sql .= " INNER JOIN categoria_evento ";
         $sql .= " ON eventos.id_cat_evento = categoria_evento.id_categoria ";
         $sql .= " INNER JOIN invitados ";
-        $sql .=  " ON eventos.id_inv = invitados.invitado_id ";
+        $sql .= " ON eventos.id_inv = invitados.invitado_id ";
         $sql .= " ORDER BY evento_id ";
         $resultado = $conn->query($sql);
       } catch (\Exception $e) {
@@ -41,18 +41,27 @@
     <div class="calendario">
       <?php
       // 4.- Imprimir resultados.
-      /*
-        <?php
-          echo $eventos['evento_id'] . '.- ' . $eventos['nombre_evento'] . '<br>';
-        ?>
-      */
-
       // Imprimir todos los eventos - Forma deseada de hacerlo (while).
-        while($eventos = $resultado->fetch_assoc()) { ?>
-          <pre>
-            <?php var_dump($eventos); ?>
-          </pre>
+        $calendario = array();
+        while($eventos = $resultado->fetch_assoc()) { 
+
+          // Obtiene la fecha del evento
+          $fecha = $eventos['fecha_evento'];
+
+          $evento = array(
+            'titulo' => $eventos['nombre_evento'],
+            'fecha' => $eventos['fecha_evento'],
+            'hora' => $eventos['hora_evento'],
+            'categoria' => $eventos['cat_evento'],
+            'eventos' => $eventos['nombre_invitado'] . ' ' . $eventos['apellido_invitado']
+          );
+          $calendario[$fecha][] = $evento;
+          ?>
        <?php } ?>
+
+       <pre>
+          <?php var_dump($calendario); ?>
+        </pre>
     </div>
 
     <?php
