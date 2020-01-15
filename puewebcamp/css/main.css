@@ -934,6 +934,53 @@ input[disabled].button {
     clear: both;
     text-align: center;
 }
+.calendario {
+    display: table-cell;
+    text-align: center;
+}
+.calendario::after {
+    clear: both;
+    display: block;
+    content: '';
+}
+/* Calendario */
+.calendario h3 {
+    background-color: #fe4918;
+    clear: both;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+.dia {
+    width: 50%;
+    float: left;
+    border: 2px solid #e1e1e1;
+    transition: all .3s ease;
+}
+@media only screen and (min-width:768px) {
+    .dia {
+        width: 33.3%;
+        min-height: 240px;
+        padding-top: 20px;
+    }
+}
+.dia:hover {
+    background-color: #e1e1e1;
+    -webkit-transform: scale(1.1);
+}
+.dia p.titulo {
+    color: #fe4918;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.dia p {
+    font-size: 1em;
+}
+.dia i {
+    color: #fe4918;
+    font-size: 1.2em;
+}
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */
