@@ -15,6 +15,7 @@
   <!-- Place favicon.ico in the root directory -->
 
   <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/colorbox.css">
   <link rel="stylesheet" href="css/all.min.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald|PT+Sans" rel="stylesheet">
   <link rel="stylesheet" href="css/main.css">
@@ -62,7 +63,7 @@
       <nav class="navegacion-principal clearfix">
         <a href="conferencia.php">Conferencia</a>
         <a href="calendario.php">Calendario</a>
-        <a href="#">Invitados</a>
+        <a href="invitados.php">Invitados</a>
         <a href="registro.php">Reservaciones</a>
       </nav><!--.navegacion-principal-->
     </div><!--.contenedor-->
