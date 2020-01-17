@@ -81,47 +81,8 @@
     </div><!--.contenido-programa-->
   </section><!--.programa-->
 
-  <section class="invitados contenedor seccion">
-    <h2>Nuestros Invitados</h2>
-    <ul class="lista-invitados clearfix">
-      <li>
-        <div class="invitado">
-          <img src="img/invitado1.jpg" alt="imagen invitado 1">
-          <p>Rafael Bautista</p>
-        </div>
-      </li>
-      <li>
-        <div class="invitado">
-          <img src="img/invitado2.jpg" alt="imagen invitado 2">
-          <p>Shari Herrera</p>
-        </div>
-      </li>
-      <li>
-        <div class="invitado">
-          <img src="img/invitado3.jpg" alt="imagen invitado 3">
-          <p>Gregorio Sánchez</p>
-        </div>
-      </li>
-      <li>
-        <div class="invitado">
-          <img src="img/invitado4.jpg" alt="imagen invitado 4">
-          <p>Susana Rivera</p>
-        </div>
-      </li>
-      <li>
-        <div class="invitado">
-          <img src="img/invitado5.jpg" alt="imagen invitado 5">
-          <p>Harold García</p>
-        </div>
-      </li>
-      <li>
-        <div class="invitado">
-          <img src="img/invitado6.jpg" alt="imagen invitado 6">
-          <p>Susan Sánchez</p>
-        </div>
-      </li>
-    </ul>
-  </section><!--.invitados-->
+  <?php // Template Invitados (también reutilizado en invitados.php). ?>
+  <?php include_once 'includes/templates/invitados.php'; ?>
 
   <div class="contador parallax">
     <div class="contenedor">
