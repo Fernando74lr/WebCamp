@@ -234,6 +234,5 @@ $(function() {
     var calendario_body = $('body').hasClass('calendario');
     if (!calendario_body) {
        $('.invitado-info').colorbox({inline:true, width:"50%"});
-    }
-        
+    }     
 });
