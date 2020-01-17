@@ -158,7 +158,24 @@ $(function() {
 
     // Lettering
     $('.nombre-sitio').lettering();
-
+    
+    // Agregar clase a Menú
+    if ($('span').hasClass('calendario')) {
+        $('body .navegacion-principal a:contains("Calendario")').addClass('activo');
+    } else if ($('span').hasClass('conferencia')) {
+        $('body .navegacion-principal a:contains("Conferencia")').addClass('activo');
+    } else if ($('span').hasClass('invitados')) {
+        $('body .navegacion-principal a:contains("Invitados")').addClass('activo');
+    }
+      
+    /*
+     // Esto es lo mismo que lo de acá arriba, sólo que sin usar la class en el body porque
+     // alteraba toda la página.
+     
+        $('body .navegacion-principal a:contains("Conferencia")').addClass('activo');
+        $('body .navegacion-principal a:contains("Calendario")').addClass('activo');
+        $('body .navegacion-principal a:contains("Invitados")').addClass('activo');
+    */
     // Menu fijo
     var windowHeight = $(window).height();
     var barraAltura = $('.barra').innerHeight();
@@ -213,4 +230,10 @@ $(function() {
         $('#segundos').html(event.strftime('%S'));
     });
 
+    // Colorbox
+    var calendario_body = $('body').hasClass('calendario');
+    if (!calendario_body) {
+       $('.invitado-info').colorbox({inline:true, width:"50%"});
+    }
+        
 });

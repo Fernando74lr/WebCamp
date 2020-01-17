@@ -15,18 +15,32 @@
   <!-- Place favicon.ico in the root directory -->
 
   <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/colorbox.css">
   <link rel="stylesheet" href="css/all.min.css">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald|PT+Sans" rel="stylesheet">
+  <?php
+    $archivo = basename($_SERVER['PHP_SELF']); // Retorna nombre del archivo actual.
+    $pagina = str_replace('.php', '', $archivo); // Busca , reemplazo y fuente de datos.
+    if ($pagina === 'invitados' || $pagina === 'index') {
+      echo '<link rel="stylesheet" href="css/colorbox.css">';
+    } else if ($pagina === 'conferencia') {
+      echo '<link rel="stylesheet" href="css/lightbox.css">';
+    }
+  ?> 
   <link rel="stylesheet" href="css/main.css">
 </head>
+
+
+<?php
+  $archivo = basename($_SERVER['PHP_SELF']); // Retorna nombre del archivo actual.
+  $pagina = str_replace('.php', '', $archivo); // Busca , reemplazo y fuente de datos.
+?>
 
 <body>
   <!--[if lte IE 9]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
   <![endif]-->
-
-  <header class="site-header">
+    <span class="<?php echo $pagina; ?>"></span>
+  <header class="site-header" >
     <div class="hero">
       <div class="contenido-header">
         <nav class="redes-sociales">
