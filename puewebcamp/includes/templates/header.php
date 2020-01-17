@@ -29,12 +29,6 @@
   <link rel="stylesheet" href="css/main.css">
 </head>
 
-
-<?php
-  $archivo = basename($_SERVER['PHP_SELF']); // Retorna nombre del archivo actual.
-  $pagina = str_replace('.php', '', $archivo); // Busca , reemplazo y fuente de datos.
-?>
-
 <body>
   <!--[if lte IE 9]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
