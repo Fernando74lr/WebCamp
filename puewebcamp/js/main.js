@@ -42,6 +42,11 @@
         var camisas = document.querySelector("#camisa_evento");
         var etiquetas = document.querySelector("#etiquetas");
 
+        var botonRegistro = document.querySelector('#btnRegistro');
+        if(botonRegistro) {
+            botonRegistro.disabled = true; //Deshabilitamos botón de pagar
+        }
+
         // Evitando errores comunes de JS con este 'if' para este caso
         if (document.getElementById('calcular')) {
 
@@ -86,7 +91,6 @@
             email.addEventListener('blur', validarEmail);
 
             function calcularMontos(event) {
-                console.log("CLICK EN CALCULAR");
                 event.preventDefault();
                 if (regalo.value === '') {
                     alert("Debes elegir un regalo");
@@ -123,6 +127,8 @@
                     
                     // Redondea a 2 decimales.
                     suma.innerHTML = `$ ${totalPagar.toFixed(2)} MXN`;
+                    botonRegistro.disabled = false;
+                    document.getElementById('total_pedido').value = totalPagar;
                 }
             }
 
@@ -231,8 +237,7 @@ $(function() {
     });
 
     // Colorbox
-    var calendario_body = $('body').hasClass('calendario');
-    if (!calendario_body) {
+    if ($('span').hasClass('invitados')) {
        $('.invitado-info').colorbox({inline:true, width:"50%"});
     }     
 });
