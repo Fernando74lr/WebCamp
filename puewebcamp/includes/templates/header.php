@@ -20,7 +20,7 @@
   <?php
     $archivo = basename($_SERVER['PHP_SELF']); // Retorna nombre del archivo actual.
     $pagina = str_replace('.php', '', $archivo); // Busca , reemplazo y fuente de datos.
-    if ($pagina === 'invitados' || $pagina === 'index') {
+    if ($pagina === 'invitados' || $pagina === 'index' || $pagina === 'calendario' || $pagina === 'registro') {
       echo '<link rel="stylesheet" href="css/colorbox.css">';
     } else if ($pagina === 'conferencia') {
       echo '<link rel="stylesheet" href="css/lightbox.css">';
