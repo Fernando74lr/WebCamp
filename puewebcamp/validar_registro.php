@@ -30,6 +30,9 @@
                     bind_param() es usada para enlazar variables para los marcadores de parámetros en la sentencia SQL que fue pasada a prepare(). La cadena types contiene uno o más caracteres los cuales especifican los tipos para las variables enlazadas correspondientes. En este caso son: s->string, i->int.
                 */
                 $stmt->bind_param("ssssssis", $nombre, $apellido, $email, $fecha, $pedido, $registro, $regalo, $total);
+                $stmt->execute();
+                $stmt->close();
+                $conn->close();
             } catch (\Exception $e) {
                 echo $e->getMessage();
             }
