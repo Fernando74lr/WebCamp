@@ -10,6 +10,17 @@
                 $json[$key] = (int) $boletos;
             endif;
         endforeach;
+
+        $camisas = (int) $camisas;
+        if ($camisas > 0) {
+            $json['camisas'] = $camisas;
+        }
+
+        $etiquetas = (int) $etiquetas;
+        if ($etiquetas > 0) {
+            $json['etiquetas'] = $etiquetas;
+        }
+
         return json_encode($json);
     }
 
