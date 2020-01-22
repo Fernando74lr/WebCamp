@@ -206,7 +206,7 @@
     <div class="contenido contenedor">
       <p>Regístrate en newsletter:</p>
       <h3>Puewebcamp</h3>
-      <a href="#" class="button transparente">Registro</a>
+      <a href="#mc_embed_signup" class="boton_newsletter button transparente">Registro</a>
     </div><!--.contenido-->
   </div><!--.newsletter-->
 

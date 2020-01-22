@@ -239,5 +239,7 @@ $(function() {
     // Colorbox
     if ($('span').hasClass('invitados')) {
        $('.invitado-info').colorbox({inline:true, width:"50%"});
-    }     
+    } else if ($('span').hasClass('index')) {
+        $('.boton_newsletter').colorbox({inline:true, width:"50%"});
+    }
 });
