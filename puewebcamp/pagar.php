@@ -26,8 +26,10 @@
         $fecha = date('Y-m-d h:i:s');
         // Pedidos
         $boletos = $_POST['boletos'];
+        $numero_boletos = $boletos;
+        $pedidoExtra = $_POST['pedido_extra'];
         $camisas = $_POST['pedido_extra']['camisas']['cantidad'];
-        $precioCamisa = $_POST['pedido_extra']['camisas']['precio'];
+        $precioCamisa = $_POST['pedido_extra']['camisas']['precio'];        
         $etiquetas = $_POST['pedido_extra']['etiquetas']['cantidad'];
         $precioEtiqueta = $_POST['pedido_extra']['etiquetas']['precio'];
         include_once 'includes/funciones/funciones.php';
@@ -36,13 +38,13 @@
         $eventos = $_POST['registro'];
         $registro = eventos_json($eventos);
 
-    /*    echo "<pre>";
-            var_dump($etiquetas);
+        echo "<pre>";
+            var_dump($pedidoExtra);
         echo "</pre>";
-        exit;
-    endif;*/
+        //exit;
+    //endif;
     
-        // Insetando a la Base de Datos.
+        // Insertando a la Base de Datos.
         try {
             require_once('includes/funciones/bd_conexion.php');
             # Le dice a MySQL que se prepare porque va a haber una inserción a la BD
@@ -57,44 +59,79 @@
             $conn->close();
             # Con esto nos aseguramos que no se reinserten los datos en la BD al momento de recargar la página.
             # Como si los datos, una vez que se enviaron a la BD, ya no exitieran más.
-            header('Location: validar_registro.php?exitoso=1');
+            //header('Location: validar_registro.php?exitoso=1');
         } catch (\Exception $e) {
             echo $e->getMessage();
         }  
     
-
-
+    endif;
 
     // La clase Payer es un recurso que representa a un pagador que financia un pago. //
     $compra = new Payer();
     $compra->setPaymentMethod('paypal'); # Selecciona el método de pago deseado.
 
-    /*
+
     // La clase Item es para los detalles del artículo. //
     $articulo = new Item();
     $articulo->setName($producto)
              ->setCurrency('MXN') # Tipo de moneda.
              ->setQuantity(1) # Cantidad de artículos a pagar.
              ->setPrice($precio); # Precio del artículo.
+    $i = 0;
+    $arreglo_pedido = array();
+    foreach($numero_boletos as $key => $value) {
+        if ( (int) $value['cantidad'] > 0 ) {
+            // Esto cada vez nos va a crear un nuevo objeto con el número de artículo del valor de $i
+            ${"articulo$i"} = new Item();
+            $arreglo_pedido[] = ${"articulo$i"};
+            ${"articulo$i"}->setName('Pase: ' . $key)
+                           ->setCurrency('USD') # Tipo de moneda.
+                           ->setQuantity( (int) $value['cantidad'] ) # Cantidad de artículos a pagar.
+                           ->setPrice( (int) $value['precio'] ); # Precio del artículo.
+            $i++;
+        }
+    }
+
+    # Aquí se asigna el precio por medio de variable y en el foreach anterior por medio de un array. No hay problema.
+    foreach($pedidoExtra as $key => $value) {
+        if ( (int) $value['cantidad'] > 0 ) {
+
+            // If para el descuento.
+            if ($key == 'camisas') {
+                $precio = (float) $value['precio'] * .93;
+            }
+            else {
+                $precio = (int) $value['precio'];
+            }
+            // Esto cada vez nos va a crear una nueva variable con el número de artículo del valor de $i
+            ${"articulo$i"} = new Item();
+            $arreglo_pedido[] = ${"articulo$i"};
+            ${"articulo$i"}->setName('Extras: ' . $key)
+                           ->setCurrency('USD') # Tipo de moneda.
+                           ->setQuantity( (int) $value['cantidad'] ) # Cantidad de artículos a pagar.
+                           ->setPrice($precio); # Precio del artículo.
+            $i++;
+        }
+    }
 
 
+    
     // La clase ItemList es la lista de los artículos que se van a pagar. //
     $listaArticulos = new ItemList();
-    $listaArticulos->setItems(array($articulo)); # Añade los articulos. Tiene que recibir un array.
+    $listaArticulos->setItems($arreglo_pedido); # Añade los articulos. Tiene que recibir un array.
 
+    echo "<pre>";
+    var_dump($arreglo_pedido);
+    echo "</pre>";
 
-    // La clase Details es para detalles adicionales a la cantidad de pago. //
-    $detalles = new Details();
-    $detalles->setShipping($envio) # Cantidad cobrada por el envío.
-             ->setSubtotal($precio); # Cantidad del subtotal de los artículos.
 
 
     // La clase Amount es para el importe del pago con rupturas. //
     $cantidad = new Amount();
-    $cantidad->setCurrency('MXN')  # Tipo de moneda.
+    $cantidad->setCurrency('USD')  # Tipo de moneda.
              ->setTotal($total)  # Cantidad que será cobrada a la persona que va a pagar.
              ->setDetails($detalles); # Datos adicionales para la cantidad a pagar.
-
+/*
 
     // La clase Transaction define el contrato de un pago: para qué es el pago y quién lo está cumpliendo. //
     $transaccion = new Transaction();
