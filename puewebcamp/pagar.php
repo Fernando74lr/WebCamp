@@ -55,6 +55,7 @@
             */
             $stmt->bind_param("ssssssis", $nombre, $apellido, $email, $fecha, $pedido, $registro, $regalo, $total);
             $stmt->execute();
+            $ID_registro = $stmt->insert_id; # ID que se inserta en la base de datos.
             $stmt->close();
             $conn->close();
             # Con esto nos aseguramos que no se reinserten los datos en la BD al momento de recargar la página.
@@ -70,13 +71,6 @@
     $compra = new Payer();
     $compra->setPaymentMethod('paypal'); # Selecciona el método de pago deseado.
 
-
-    // La clase Item es para los detalles del artículo. //
-    $articulo = new Item();
-    $articulo->setName($producto)
-             ->setCurrency('MXN') # Tipo de moneda.
-             ->setQuantity(1) # Cantidad de artículos a pagar.
-             ->setPrice($precio); # Precio del artículo.
     $i = 0;
     $arreglo_pedido = array();
     foreach($numero_boletos as $key => $value) {
@@ -120,31 +114,25 @@
     $listaArticulos = new ItemList();
     $listaArticulos->setItems($arreglo_pedido); # Añade los articulos. Tiene que recibir un array.
 
-    echo "<pre>";
-    var_dump($arreglo_pedido);
-    echo "</pre>";
-
-
-
+    
     // La clase Amount es para el importe del pago con rupturas. //
     $cantidad = new Amount();
     $cantidad->setCurrency('USD')  # Tipo de moneda.
              ->setTotal($total)  # Cantidad que será cobrada a la persona que va a pagar.
              ->setDetails($detalles); # Datos adicionales para la cantidad a pagar.
-/*
+
 
     // La clase Transaction define el contrato de un pago: para qué es el pago y quién lo está cumpliendo. //
     $transaccion = new Transaction();
     $transaccion->setAmount($cantidad) # Cantidad del totoal a pagar.
                  ->setItemList($listaArticulos) # Todos los artículos que se van a pagar.
-                 ->setDescription('Pago ') # Agrega una descripción al pago.
-                 ->setInvoiceNumber(uniqid()); # Número para identificar el pago.
-
+                 ->setDescription('Pago PUEWEBCAMP ') # Agrega una descripción al pago.
+                 ->setInvoiceNumber($ID_registro); # Número para identificar el pago. uniqid() da un id único.
 
     // Conjunto de URL de redireccionamiento que proporciona solo para pagos basados en PayPal. //
     $redireccionar = new RedirectUrls();
-    $redireccionar->setReturnUrl(URL_SITIO . "/pago_finalizado.php?exito=true")
-                  ->setCancelUrl(URL_SITIO . "/pago_finalizado.php?exito=false"); 
+    $redireccionar->setReturnUrl(URL_SITIO . "/pago_finalizado.php?id_pago={$ID_registro}")
+                  ->setCancelUrl(URL_SITIO . "/pago_finalizado.php?id_pago={$ID_registro}"); 
 
 
     // Te permite crear, procesar y manegar los pagos //
@@ -154,16 +142,15 @@
         ->setRedirectUrls($redireccionar) # Urls que definiste hacia donde se redireccionará al usuario.
         ->setTransactions(array($transaccion)); # Transacciones que definiste. Debe ser array.
 
-        try {
-            $pago->create($apiContext); # Después de que todo fue especificado... Asociamos toda la info. con el contexto que contiene nuestras dos claves CLIENT_ID y SECRET en el archivo config.php
-        } catch (PayPal\Exception\PayPalConnectionException $pce) { # pce = PayPal Connection Exception.
-            echo "<pre>";
-            print_r(json_decode($pce->getData())); # Obtiene la información y decodifica el archivo JSON.
-            exit; # Se encarga que el progrma ya no se ejecute.
-            echo "</pre>";
-        }
+    try {
+        $pago->create($apiContext); # Después de que todo fue especificado... Asociamos toda la info. con el contexto que contiene nuestras dos claves CLIENT_ID y SECRET en el archivo config.php
+    } catch (PayPal\Exception\PayPalConnectionException $pce) { # pce = PayPal Connection Exception.
+        echo "<pre>";
+        print_r(json_decode($pce->getData())); # Obtiene la información y decodifica el archivo JSON.
+        exit; # Se encarga que el programa ya no se ejecute.
+        echo "</pre>";
+    }
 
-        $aprobado = $pago->getApprovalLink(); # Link de aprobación
-        
-        header("Location: {$aprobado}"); # Sirve para redireccionar.
-    */
+    $aprobado = $pago->getApprovalLink(); # Link de aprobación
+    
+    header("Location: {$aprobado}"); # Sirve para redireccionar.
