@@ -984,7 +984,23 @@ input[disabled].button {
 .cboxElement {
     text-align: center;
 }
-
+.resultado {
+    text-align: center;
+    padding: 1rem;
+    color: #ffffff;
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.75);
+}
+.correcto {
+    background-color: rgb(2,173, 2);
+}
+.error {
+    background-color: red;
+}
 /* ==========================================================================
    Helper classes
    ========================================================================== */
