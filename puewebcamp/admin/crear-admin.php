@@ -31,19 +31,20 @@
               <form role="form" name="crear-id" id="crear-id" method="post" action="insertar-admin.php">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Usuario:</label>
-                    <input type="email" class="form-control" id="usuario" name="usuario" placeholder="Usuario">
+                    <label for="nombre">Usuario:</label>
+                    <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Nombre:</label>
-                    <input type="email" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre completo">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre completo">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Password: </label>
+                    <label for="password">Password: </label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Password para loguearse">
                   </div>
                 </div> <!-- /.card-body -->
                 <div class="card-footer">
+                  <input type="hidden" name="agregar-admin" value="1">
                   <button type="submit" class="btn btn-primary">Añadir</button>
                 </div>
               </form>
