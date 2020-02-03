@@ -1,4 +1,12 @@
 <?php
+    include_once 'funciones/funciones.php';
+    /* # Forma de comprobrar que sí se conectó a la Base de Datos.
+        if ($conn->ping()) {
+            echo "Conectado.";
+        } else {
+            echo "No estás conectado.";
+        }
+    */
     if (isset($_POST['agregar-admin'])) {
         $usuario = $_POST['usuario'];
         $nombre = $_POST['nombre'];
@@ -13,5 +21,6 @@
         );
 
         $password_hassed = password_hash($password, PASSWORD_BCRYPT, $opciones);
-        echo $password_hassed;
     }
+
+?>
