@@ -41,18 +41,30 @@ $(document).ready(function () {
                 success: function (data) {
                     var respuesta = data;
                     if (respuesta.respuesta == 'exito') {
-                        //$("#crear-admin").reset();
+                        // Limpia el formulario
+                        $("#crear-admin")[0].reset();
+                        // Alerta que fue correcto el proceso.
                         Swal.fire({
                             icon: 'success',
                             title: '¡Admin creado!',
                             text: 'El administrador fue creado exitosamente',
                         });
                     } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Algo salió mal, intenta de nuevo',
-                        });
+                        if(respuesta.respuesta == 'repetido') {
+                            // Alerta que el nombre de usuario se repitió.
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Usuario repetido, intenta otro nombre de usuario.',
+                            });
+                        } else {
+                            // Alerta que hubo un error en el proceso.
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Algo salió mal, intenta de nuevo',
+                            });
+                        }
                     }
                 }
             });
