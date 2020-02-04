@@ -29,7 +29,7 @@
               <h3 class="card-title">Crear Admin</h3>
             </div>
             <div class="card-body">
-              <form role="form" name="crear-id" id="crear-id" method="post" action="insertar-admin.php">
+              <form role="form" name="crear-admin" id="crear-admin" method="post" action="insertar-admin.php">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="nombre">Usuario:</label>

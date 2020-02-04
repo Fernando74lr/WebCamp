@@ -1,6 +1,14 @@
 <?php
 
     if (isset($_POST['agregar-admin'])) {
+        /*
+            die().
+            Se utiliza para imprimir mensajes y salir del script php actual.
+            Es equivalente a la función exit () en PHP. Parámetros: esta función 
+            acepta solo un parámetro y no es obligatorio pasar.
+
+            die(json_encode($_POST));
+        */
         $usuario = $_POST['usuario'];
         $nombre = $_POST['nombre'];
         $password = $_POST['password'];
@@ -28,11 +36,30 @@
             $stmt = $conn->prepare("INSERT INTO admins (usuario, nombre, password) VALUES (?, ?, ?)");
             $stmt->bind_param("sss", $usuario, $nombre, $password_hassed);
             $stmt->execute();
+            if ($stmt->affected_rows) {
+                $respuesta = array(
+                    'respuesta' => 'exito',
+                    'id_admin' => $stmt->insert_id
+                );
+            } else {
+                $respuesta = array(
+                    'respuesta' => 'error'
+                );
+            }
             $stmt->close();
             $conn->close();
         } catch (Exception $e) {
             echo "Error " . $e->getMessage();
         }
+
+        echo json_encode($respuesta);
+
+    } else {
+        $respuesta = array(
+            'respuesta' => 'error'
+        );
+
+        echo json_encode($respuesta);
     }
 
 ?>
