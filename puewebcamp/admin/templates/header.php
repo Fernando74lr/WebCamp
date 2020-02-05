@@ -7,6 +7,8 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- DataTables -->
+  <link rel="stylesheet" href="dataTables/datatables-bs4/css/dataTables.bootstrap4.css">
   <!-- Admin Css -->
   <link rel="stylesheet" href="css/admin.css">
   <!-- Sweet Alert 2 -->

@@ -6,3 +6,9 @@ button#login {
 footer#footer_login {
     display:none;
 }
+
+.col-12 {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+}

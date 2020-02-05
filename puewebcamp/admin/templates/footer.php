@@ -12,6 +12,9 @@
 <script src="js/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="js/bootstrap.bundle.min.js"></script>
+<!-- DataTables -->
+<script src="dataTables/datatables/jquery.dataTables.js"></script>
+<script src="dataTables/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 <!-- AdminLTE App -->
 <script src="js/adminlte.min.js"></script>
 <!-- Sweet Alert 2 -->
@@ -20,6 +23,7 @@
 <script src="js/admin-ajax.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="js/demo.js"></script>
-
+<!-- page script -->
+<script src="js/app.js">></script>
 </body>
 </html>
