@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("#crear-admin").on('submit', function(e) {
+    $("#guardar-registro").on('submit', function(e) {
         /*
             preventDefault().
             Ejecuta el action del form, pero no queremos que abra el archivo.
@@ -39,6 +39,7 @@ $(document).ready(function () {
                 data: datos, // Datos que quieres enviar a AJAX.
                 dataType: "json", // Tipo de dato.
                 success: function (data) {
+                    console.log(data);
                     var respuesta = data;
                     if (respuesta.respuesta == 'exito') {
                         // Limpia el formulario

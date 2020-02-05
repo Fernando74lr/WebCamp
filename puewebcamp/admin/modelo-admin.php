@@ -1,7 +1,7 @@
 <?php
     include 'funciones/funciones.php';
 
-    if (isset($_POST['agregar-admin'])) {
+    if ($_POST['registro'] == 'nuevo') {
         /*
             die().
             Se utiliza para imprimir mensajes y salir del script php actual.
@@ -80,6 +80,11 @@
             echo json_encode($respuesta);
         }
     }
+
+    if ($_POST['registro'] == 'actualizar') {
+        die(json_encode($_POST));
+    }
+
 
     if (isset($_POST['login-admin'])) {
         $usuario = $_POST['usuario'];
