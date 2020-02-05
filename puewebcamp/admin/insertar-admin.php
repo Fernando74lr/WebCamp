@@ -92,7 +92,7 @@
             $stmt->execute();
             // bind_result(). Se utiliza cuando haces una consulta a la BD y te retorna en variables nuevas
             // las variables que quieres ocupar.
-            $stmt->bind_result($id_admin, $usuario, $nombre_admin, $password_admin);
+            $stmt->bind_result($id_admin, $usuario_admin, $nombre_admin, $password_admin);
             if ($stmt->affected_rows) {
                 // El fetch() es el que ya imprime los resultados.
                 $existe = $stmt->fetch();
@@ -106,6 +106,9 @@
                         hash: un hash creado por password_hash().
                     */
                     if (password_verify($password, $password_admin)) {
+                        session_start();
+                        $_SESSION['usuario'] = $usuario_admin;
+                        $_SESSION['nombre'] = $nombre_admin;
                         $respuesta = array(
                             'respuesta' => 'exitoso',
                             'usuario' => $nombre_admin
