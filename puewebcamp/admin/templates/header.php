@@ -7,6 +7,8 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <!-- Admin Css -->
+  <link rel="stylesheet" href="css/admin.css">
   <!-- Sweet Alert 2 -->
   <link rel="stylesheet" href="css/sweetalert2.min.css">
   <!-- Font Awesome -->

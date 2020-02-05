@@ -1,4 +1,4 @@
-<footer class="main-footer">
+<footer class="main-footer" id="footer_<?php echo obtenerPaginaActual() ?>">
     <div class="float-right d-none d-sm-block">
       <b>By:</b> Fernando López Ramírez
     </div>
@@ -20,3 +20,6 @@
 <script src="js/admin-ajax.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="js/demo.js"></script>
+
+</body>
+</html>

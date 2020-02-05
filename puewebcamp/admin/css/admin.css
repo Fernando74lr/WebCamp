@@ -1,0 +1,8 @@
+/* LOGIN PAGE */
+button#login {
+    margin-left: 90px;
+}
+
+footer#footer_login {
+    display:none;
+}
