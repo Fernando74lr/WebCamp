@@ -107,7 +107,11 @@ $(document).ready(function () {
                             icon: 'success',
                             title: 'Bienvenido(a), ' + respuesta.usuario + '.',
                             text: 'Has accedido exitosamente a tu cuenta',
-                        });
+                        })
+                        setTimeout(function() {
+                            // Redireccionar con JavaScript después de 2 segundos.
+                            window.location.href = 'admin-area.php'
+                        }, 2000);
                     } else {
                         // Alerta que hubo un error en el proceso.
                         Swal.fire({

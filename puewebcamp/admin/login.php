@@ -1,4 +1,10 @@
 <?php
+  session_start();
+  // Cierra la sesión dependiendo del parámetro que se la pasa por parámetro en el enlace 'Cerrar Sesión'
+  $cerrar_sesion = $_GET['cerrar_sesion'];
+  if ($cerrar_sesion) {
+    session_destroy();
+  }
   include_once 'funciones/funciones.php';
   include_once 'templates/header.php';
 ?>
@@ -12,14 +18,6 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Inicia sesión aquí</p>
-
-      <?php
-        session_start();
-        echo "<pre>";
-          var_dump($_SESSION);
-        echo "</pre>";
-      ?>
-
       <form name="login-admin-form" id="login-admin" method="post" action="insertar-admin.php">
         <div class="input-group mb-3">
           <input type="text" class="form-control" name="usuario" placeholder="Usuario">
