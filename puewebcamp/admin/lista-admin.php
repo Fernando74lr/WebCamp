@@ -13,7 +13,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Administradores</h1>
+            <h1>Listado de Administradores</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -25,11 +25,11 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">DataTable with default features</h3>
+              <h3 class="card-title">Manega los usuarios en esta sección</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="registros" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>Usuario</th>
