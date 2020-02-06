@@ -24,7 +24,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Editar Administrador</h1>
-            <small>Llena el formulario para crear un administrador</small>
+            <small>Llena el formulario para editar el administrador</small>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -57,13 +57,15 @@
                   </div>
                   <div class="form-group">
                     <label for="password">Password: </label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password para loguearse">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Escribe para cambiar tu contraseña">
+                    <small>Deja el campo en blanco si no quieres cambiar la contraseña</small>
                   </div>
                 </div> <!-- /.card-body -->
                 <div class="card-footer">
                 <input type="hidden" name="registro" value="actualizar">
                   <input type="hidden" name="id_registro" value="<?php echo $id ?>">
-                  <button type="submit" class="btn btn-primary">Añadir</button>
+                  <input type="hidden" name="pagina_actual" value="<?php echo obtenerPaginaActual() ?>">
+                  <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
               </form>
             </div> <!-- /.card-body -->

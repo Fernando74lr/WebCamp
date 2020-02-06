@@ -1,5 +1,10 @@
 <?php
     include 'funciones/funciones.php';
+    $usuario = $_POST['usuario'];
+    $nombre = $_POST['nombre'];
+    $password = $_POST['password'];
+    $id_registro = $_POST['id_registro'];
+    $pagina_actual = $_POST['pagina_actual'];
 
     if ($_POST['registro'] == 'nuevo') {
         /*
@@ -11,9 +16,6 @@
             die(json_encode($_POST));
         */
         $registro = obtenerUsuarios();
-        $usuario = $_POST['usuario'];
-        $nombre = $_POST['nombre'];
-        $password = $_POST['password'];
         $repetido = 0;
 
         $usuarios = array();
@@ -82,7 +84,43 @@
     }
 
     if ($_POST['registro'] == 'actualizar') {
-        die(json_encode($_POST));
+        $opciones = array(
+            'cost' => 12
+        );
+        try {
+            $hash_password = password_hash($password, PASSWORD_BCRYPT, $opciones);
+
+            if ($pagina_actual == 'editar-admin' && $password == '') {
+                $sql = "UPDATE admins SET usuario = ?, nombre = ? WHERE id_admin = ?";
+            } else {
+                $sql = "UPDATE admins SET usuario = ?, nombre = ?, password = ? WHERE id_admin = ?";
+            }
+            $stmt = $conn->prepare($sql);
+            if ($password == '') {
+                $stmt->bind_param("ssi", $usuario, $nombre, $id_registro);
+            } else {
+                $stmt->bind_param("sssi", $usuario, $nombre, $hash_password, $id_registro);
+            }
+            $stmt->execute();
+            if ($stmt->affected_rows) {
+                $respuesta = array(
+                    'respuesta' => 'exito',
+                    'id_actualizado' => $stmt->insert_id
+                );
+            } else {
+                $respuesta = array(
+                    'respuesta' => 'error'
+                ); 
+            }
+            $stmt->close();
+            $conn->close();
+        } catch (Exception $e) {
+            $respuesta = array(
+                'respuesta' => $e->getMessage()
+            );
+        }
+
+        echo json_encode($respuesta);
     }
 
 
@@ -115,7 +153,7 @@
                         $_SESSION['usuario'] = $usuario_admin;
                         $_SESSION['nombre'] = $nombre_admin;
                         $respuesta = array(
-                            'respuesta' => 'exitoso',
+                            'respuesta' => 'exito',
                             'usuario' => $nombre_admin
                         );
                     } else {
