@@ -91,9 +91,10 @@
             $hash_password = password_hash($password, PASSWORD_BCRYPT, $opciones);
 
             if ($pagina_actual == 'editar-admin' && $password == '') {
-                $sql = "UPDATE admins SET usuario = ?, nombre = ? WHERE id_admin = ?";
+                // Pensar siempre de dónde se toma la hora ¿BD o SERVER?/¿MySQL o PHP?
+                $sql = "UPDATE admins SET usuario = ?, nombre = ?, editado = NOW() WHERE id_admin = ?";
             } else {
-                $sql = "UPDATE admins SET usuario = ?, nombre = ?, password = ? WHERE id_admin = ?";
+                $sql = "UPDATE admins SET usuario = ?, nombre = ?, password = ?, editado = NOW() WHERE id_admin = ?";
             }
             $stmt = $conn->prepare($sql);
             if ($password == '') {
@@ -135,7 +136,7 @@
             $stmt->execute();
             // bind_result(). Se utiliza cuando haces una consulta a la BD y te retorna en variables nuevas
             // las variables que quieres ocupar.
-            $stmt->bind_result($id_admin, $usuario_admin, $nombre_admin, $password_admin);
+            $stmt->bind_result($id_admin, $usuario_admin, $nombre_admin, $password_admin, $editado);
             if ($stmt->affected_rows) {
                 // El fetch() es el que ya imprime los resultados.
                 $existe = $stmt->fetch();
