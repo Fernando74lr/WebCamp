@@ -124,6 +124,37 @@
         echo json_encode($respuesta);
     }
 
+    if ($_POST['registro'] == 'eliminar') {
+        $id_borrar = $_POST['id'];
+        
+        try {
+            $stmt = $conn->prepare("DELETE FROM admins WHERE id_admin = ?");
+            $stmt->bind_param("i", $id_borrar);
+            $stmt->execute();
+            // bind_result(). Se utiliza cuando haces una consulta a la BD y te retorna en variables nuevas
+            // las variables que quieres ocupar.
+            $stmt->bind_result($id_admin, $usuario_admin, $nombre_admin, $password_admin, $editado);
+            if ($stmt->affected_rows) {
+                $respuesta = array(
+                    'respuesta' => 'exito',
+                    'id_eliminado' => $id_borrar
+                );
+            } else {
+                $respuesta = array(
+                    'respuesta' => 'error'
+                );
+            }
+            $stmt->close();
+            $conn->close();
+            } catch (Exception $e) {
+                $respuesta = array(
+                    'respuesta' => $e->getMessage()
+                );
+            }
+    
+            echo json_encode($respuesta);
+    }
+
 
     if (isset($_POST['login-admin'])) {
         $usuario = $_POST['usuario'];

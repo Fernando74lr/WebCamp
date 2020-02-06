@@ -51,6 +51,14 @@ $(document).ready(function () {
                 if (respuesta.respuesta == 'exito') {
                     // Limpia el formulario
                     $("#guardar-registro")[0].reset();
+                    
+                    // Limpia el feedback anterior del password repetido.
+                    var campo_password = $('#password');
+                    var campo_repetir_password = $('#repetir_password');            
+                    campo_password.removeClass('is-valid is-invalid');
+                    campo_repetir_password.removeClass('is-valid is-invalid');
+                    $('#resultado_password').removeClass('valid-feedback invalid-feedback');
+                    
                     // Alerta que fue correcto el proceso.
                     if (adminNuevo) {
                         alert('success', 'creado');
@@ -69,6 +77,50 @@ $(document).ready(function () {
             }
         });
     }
+
+    $('.borrar_registro').on('click', function(e) {
+        e.preventDefault();
+        var id = $(this).attr('data-id');
+        var tipo = $(this).attr('data-tipo');
+        
+        // Alerta de confirmación
+        Swal.fire({
+            title: '¿Estás seguro que deseas eliminarlo?',
+            text: "No hay forma de recuperarlo",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+          }).then(function() {
+            $.ajax({
+                type: "post",
+                url: 'modelo-' + tipo + '.php',
+                data: {
+                    'id' : id,
+                    'registro' : 'eliminar'
+                },
+                success: function (data) {
+                    var resultado = JSON.parse(data); // lo convierte a objeto de JS.
+                    if (resultado.respuesta == 'exito') {
+                        // Elimina registro.
+                        Swal.fire(
+                            '¡Eliminado!',
+                            'El usuario fue eliminado',
+                            'success'
+                        );
+
+                        // Lo borra del DOM.
+                        // data-id  es nuestro propio id.
+                        $('[data-id="' + resultado.id_eliminado + '"]').parents('tr').remove(); 
+                    } else {
+                        alert('error', 'generico');
+                    }
+                }
+            });
+        });
+    });
 
     $("#login-admin").on('submit', function(e) {
         e.preventDefault();
