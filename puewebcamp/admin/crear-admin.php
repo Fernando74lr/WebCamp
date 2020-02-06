@@ -43,12 +43,17 @@
                   </div>
                   <div class="form-group">
                     <label for="password">Password: </label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password para loguearse">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña para iniciar sesión">
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Repetir Password: </label>
+                    <input type="password" class="form-control" id="repetir_password" name="repetir_password" placeholder="Repetir contraseña">
+                    <span id="resultado_password" class="help-block"></span>
                   </div>
                 </div> <!-- /.card-body -->
                 <div class="card-footer">
                   <input type="hidden" name="registro" value="nuevo">
-                  <button type="submit" class="btn btn-primary">Añadir</button>
+                  <button type="submit" class="btn btn-primary" id="crear_registro">Añadir</button>
                 </div>
               </form>
             </div> <!-- /.card-body -->
