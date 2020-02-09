@@ -1,10 +1,14 @@
 <?php
-  // Este script sesiones.php tiene una redirección, por lo tanto, no debe de haber nada antes de esa redirección.
-  include_once 'funciones/sesiones.php';
-  include_once 'funciones/funciones.php';
-  include_once 'templates/header.php';
-  include_once 'templates/barra.php';
-  include_once 'templates/navegacion.php';
+  $id = $_GET['id'];
+  if (!filter_var($id, FILTER_VALIDATE_INT)) {
+    die("Error");
+  } else {
+    // Este script sesiones.php tiene una redirección, por lo tanto, no debe de haber nada antes de esa redirección.
+    include_once 'funciones/sesiones.php';
+    include_once 'funciones/funciones.php';
+    include_once 'templates/header.php';
+    include_once 'templates/barra.php';
+    include_once 'templates/navegacion.php';
 ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -14,8 +18,8 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Crear evento</h1>
-            <small>Llena el formulario para crear un evento</small>
+            <h1>Editar evento</h1>
+            <small>Llena el formulario para editar un evento</small>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -28,7 +32,7 @@
           <!-- Default box -->
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Crear evento</h3>
+              <h3 class="card-title">Editar evento</h3>
             </div>
             <div class="card-body">
               <form role="form" name="guardar-registro" id="guardar-registro" method="post" action="modelo-evento.php">
@@ -120,6 +124,7 @@
 
   <?php 
     include_once 'templates/footer.php';
+    }
   ?>
 
 

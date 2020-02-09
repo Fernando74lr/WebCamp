@@ -1,36 +1,43 @@
 <?php
-    include 'funciones/funciones.php';
-    if ($_POST['registro'] == 'nuevo') {
-        die(json_encode($_POST));
-        $opciones = array(
-            'cost' => 12
-        );
+    include_once 'funciones/funciones.php';
+    $titulo = $_POST['titulo_evento'];
+    $categoria_id = $_POST['categoria_evento'];
+    $invitado_id = $_POST['invitado'];
 
+    // Obtener la fecha
+    $fecha = $_POST['fecha_evento'];
+    $fecha_separada = explode("/", $fecha);
+    $fecha_formateada = $fecha_separada[2] . '-' . $fecha_separada[1] . '-' . $fecha_separada[0];
+
+    // Hora
+    $hora = $_POST['hora_evento'];
+
+
+    if ($_POST['registro'] == 'nuevo') {
         try {
-            require_once('funciones/funciones.php');
-            $hashed_password = password_hash($password, PASSWORD_BCRYPT, $opciones);
-            # Los prepare stmts son más seguros para evitar inyección SQL., editado = NOW()
-            $stmt = $conn->prepare("INSERT INTO `admins` (usuario, nombre, password) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $usuario, $nombre, $hashed_password);
+            $stmt = $conn->prepare("INSERT INTO eventos (nombre_evento, fecha_evento, hora_evento, id_cat_evento, id_inv) VALUES (?,?,?,?,?) ");
+            $stmt->bind_param('sssii', $titulo, $fecha_formateada, $hora, $categoria_id, $invitado_id);
             $stmt->execute();
+            $id_insertado = $stmt->insert_id;
             if ($stmt->affected_rows > 0) {
                 $respuesta = array(
-                    'respuesta' => 'exito'
+                    'respuesta' => 'exito',
+                    'id_insertado' => $id_insertado
                 );
             } else {
                 $respuesta = array(
-                    'respuesta' => 'error1'
+                    'respuesta' => 'error'
                 );
             }
             $stmt->close();
             $conn->close();
         } catch (Exception $e) {
             $respuesta = array(
-                'respuesta' => 'error2'
+                'respuesta' => $e->getMessage()
             );
         }
 
-        echo json_encode($respuesta);
+        die(json_encode($respuesta));
     }
 
     if ($_POST['registro'] == 'actualizar') {

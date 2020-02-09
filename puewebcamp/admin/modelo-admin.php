@@ -34,7 +34,7 @@
         $usuarios = $admin;
         
     
-        /*if ($repetido > 0) {
+        if ($repetido > 0) {
             // No se repiten nombres de usuarios.
             $respuesta = array(
                 'respuesta' => 'repetido'
@@ -42,7 +42,7 @@
     
             echo json_encode($respuesta);
     
-        } else {*/
+        } else {
             // Se repite un nombre de usuario.
             $opciones = array(
                 /*
@@ -72,10 +72,11 @@
                 $stmt = $conn->prepare("INSERT INTO `admins` (usuario, nombre, password) VALUES (?, ?, ?)");
                 $stmt->bind_param("sss", $usuario, $nombre, $hashed_password);
                 $stmt->execute();
-                // Este if se puede cambiar por ($stmt->insert_id > 0) y no agrega el registro (sirvió para el usuario repetido)
+                $id_insertado = $stmt->insert_id;
                 if ($stmt->affected_rows > 0) {
                     $respuesta = array(
-                        'respuesta' => 'exito'
+                        'respuesta' => 'exito',
+                        'id_insertado' => $id_insertado
                     );
                 } else {
                     $respuesta = array(
@@ -91,8 +92,8 @@
                 );
             }
     
-            echo json_encode($respuesta);
-        //}
+            die(json_encode($respuesta));
+        }
     }
 
     if ($_POST['registro'] == 'actualizar') {

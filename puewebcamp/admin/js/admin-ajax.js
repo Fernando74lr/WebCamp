@@ -20,25 +20,32 @@ $(document).ready(function () {
             if (element.value === '') {
                 vacio = true;
             }
-            if (element.value === 'editar-admin') {
+            if (element.value === 'editar-admin' || element.value === 'crear-admin' || element.value === 'crear-evento') {
                 pagina_actual = element.value;
             }
         });
+        console.log("1.-" + pagina_actual);
         // Si algo se envió vacío, pero estoy en editar-admin hace el llamado a AJAX.
         if (pagina_actual == 'editar-admin') {
-            // Llamado a AJAX en JQuery.
-            ajaxRegistro(this, datos, false);
+            // Llamado a AJAX en JQuery. EDITANDO ADMIN
+            ajaxRegistro(this, datos, false, false);
         } else {
             if (vacio) {
                 alert('error', 'vacio');
             } else {
-                // Llamado a AJAX en JQuery
-                ajaxRegistro(this, datos, true);
+                console.log("2.-" + pagina_actual);
+                if (pagina_actual == 'crear-evento') {
+                    // Llamado a AJAX en JQuery. CREANDO EVENTO.
+                    ajaxRegistro(this, datos, false, true);
+                } else {
+                    // Llamado a AJAX en JQuery. CREANDO ADMIN
+                    ajaxRegistro(this, datos, true, false);
+                }
             }
         }
     });
 
-    function ajaxRegistro(element_this, datos, adminNuevo) {
+    function ajaxRegistro(element_this, datos, adminNuevo, eventoNuevo) {
         // Llamado a AJAX en JQuery
         $.ajax({
             type: $(element_this).attr('method'), // Tipo de request que vamos a hacer.
@@ -53,17 +60,21 @@ $(document).ready(function () {
                     $("#guardar-registro")[0].reset();
 
                     // Limpia el feedback anterior del password repetido.
-                    /*var campo_password = $('#password');
+                    var campo_password = $('#password');
                     var campo_repetir_password = $('#repetir_password');            
                     campo_password.removeClass('is-valid is-invalid');
                     campo_repetir_password.removeClass('is-valid is-invalid');
                     $('#resultado_password').removeClass('valid-feedback invalid-feedback');
-                    */
+
                     // Alerta que fue correcto el proceso.
                     if (adminNuevo) {
-                        alert('success', 'creado');
+                        alert('success', 'adminCreado');
                     } else {
-                        alert('success', 'editado');
+                        if (eventoNuevo) {
+                            alert('success', 'eventoCreado');
+                        } else {
+                            alert('success', 'adminEditado');
+                        }
                     }
                 } else {
                     if(respuesta.respuesta == 'repetido') {
@@ -154,14 +165,19 @@ $(document).ready(function () {
             }
         } else if (caso === 'success') {
             switch (tipo) {
-                case 'creado':
+                case 'adminCreado':
                     titulo = '¡Admin creado!';
                     descripcion = 'El administrador fue creado exitosamente';
                     break;
     
-                case 'editado':
+                case 'adminEditado':
                     titulo = '¡Admin editado!';
                     descripcion = 'El administrador fue modificado exitosamente';
+                    break;
+
+                case 'eventoCreado':
+                    titulo = 'Evento creado!';
+                    descripcion = 'El evento fue creado exitosamente';
                     break;
 
                 default:
