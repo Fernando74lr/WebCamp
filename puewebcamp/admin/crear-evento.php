@@ -31,30 +31,84 @@
               <h3 class="card-title">Crear evento</h3>
             </div>
             <div class="card-body">
-              <form role="form" name="guardar-registro" id="guardar-registro" method="post" action="modelo-admin.php">
+              <form role="form" name="guardar-registro" id="guardar-registro" method="post" action="modelo-evento.php">
                 <div class="card-body">
+                  <!-- Título del evento -->
                   <div class="form-group">
-                    <label for="nombre">Usuario:</label>
-                    <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario">
+                    <label for="nombre">Titulo evento:</label>
+                    <input type="text" class="form-control" id="titulo_evento" name="titulo_evento" placeholder="Título del evento">
                   </div>
+                  
+                  <!-- Categoría del evento -->
                   <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre completo">
+                    <label for="nombre">Categoría:</label>
+                    <select name="categoria_evento" class="form-control seleccionar">
+                        <option value="0"> -- Seleccione -- </option>
+                        <?php
+                            try {
+                                $sql = "SELECT * FROM categoria_evento ";
+                                $resultado = $conn->query($sql);
+                                while ($cat_evento = $resultado->fetch_assoc()) { ?>
+                                    <option value="<?php echo $cat_evento['id_categoria']; ?>">
+                                        <?php echo $cat_evento['cat_evento']; ?>
+                                    </option>
+                                <?php }
+                            } catch (Exception $e) {
+                                echo "Error: " . $e->getMessage();
+                            }
+                        ?>
+                    </select>
                   </div>
+
+                  <!-- Fecha del evento -->
                   <div class="form-group">
-                    <label for="password">Password: </label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña para iniciar sesión">
+                    <label>Fecha evento:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                        </div>
+                        <input type="text" placeholder="dd/mm/yyyy" name="fecha_evento" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                    </div>
                   </div>
+
+                  <!-- Hora del evento -->
+                  <div class="bootstrap-timepicker">
+                    <div class="form-group">
+                        <label>Hora:</label>
+                        <div class="input-group date" id="timepicker" data-target-input="nearest">
+                            <input type="text" name="hora_evento" class="form-control datetimepicker-input" data-target="#timepicker"/>
+                            <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="far fa-clock"></i></div>
+                            </div>
+                        </div>
+                        <small>Formato HH:MM AM/PM</small>
+                    </div>
+                  </div>
+
+                  <!-- H -->
                   <div class="form-group">
-                    <label for="password">Repetir Password: </label>
-                    <input type="password" class="form-control" id="repetir_password" name="repetir_password" placeholder="Repetir contraseña">
-                    <span id="resultado_password" class="help-block"></span>
+                    <label for="nombre">Invitado o Ponente:</label>
+                    <select name="invitado" class="form-control seleccionar">
+                        <option value="0"> -- Seleccione -- </option>
+                        <?php
+                            try {
+                                $sql = "SELECT invitado_id, nombre_invitado, apellido_invitado FROM invitados ";
+                                $resultado = $conn->query($sql);
+                                while ($invitados = $resultado->fetch_assoc()) { ?>
+                                    <option value="<?php echo $invitados['invitado_id']; ?>">
+                                        <?php echo $invitados['nombre_invitado'] . ' ' . $invitados['apellido_invitado']?>
+                                    </option>
+                                <?php }
+                            } catch (Exception $e) {
+                                echo "Error: " . $e->getMessage();
+                            }
+                        ?>
+                    </select>
                   </div>
-                </div> <!-- /.card-body -->
-                <div class="card-footer">
-                  <input type="hidden" name="registro" value="nuevo">
-                  <button type="submit" class="btn btn-primary" id="crear_registro">Añadir</button>
-                </div>
+                  <div class="card-footer">
+                    <input type="hidden" name="registro" value="nuevo">
+                    <button type="submit" class="btn btn-primary"">Añadir</button>
+                  </div>
               </form>
             </div> <!-- /.card-body -->
           </div> <!-- /.card -->

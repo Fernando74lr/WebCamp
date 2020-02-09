@@ -14,7 +14,6 @@ $(document).ready(function () {
         */
         var datos = $(this).serializeArray();
         // Recorre los elementos para verificar si algo viene vacío.
-        console.log(datos);
         var vacio = false;
         var pagina_actual;
         datos.forEach(element => {
@@ -25,19 +24,14 @@ $(document).ready(function () {
                 pagina_actual = element.value;
             }
         });
-        console.log("1");
         // Si algo se envió vacío, pero estoy en editar-admin hace el llamado a AJAX.
         if (pagina_actual == 'editar-admin') {
             // Llamado a AJAX en JQuery.
-            console.log("2.1");
             ajaxRegistro(this, datos, false);
         } else {
-            console.log("2.2");
             if (vacio) {
-                console.log("2.3");
                 alert('error', 'vacio');
             } else {
-                console.log("2.4");
                 // Llamado a AJAX en JQuery
                 ajaxRegistro(this, datos, true);
             }
@@ -45,7 +39,6 @@ $(document).ready(function () {
     });
 
     function ajaxRegistro(element_this, datos, adminNuevo) {
-        console.log("2.5");
         // Llamado a AJAX en JQuery
         $.ajax({
             type: $(element_this).attr('method'), // Tipo de request que vamos a hacer.

@@ -27,6 +27,10 @@
 <script src="js/app.js"></script>
 <!-- login-ajax -->
 <script src="js/login-ajax.js"></script>
-
+<!-- Select2 -->
+<script src="js/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="js/moment.min.js"></script>
+<script src="js/jquery.inputmask.bundle.min.js"></script>
 </body>
 </html>

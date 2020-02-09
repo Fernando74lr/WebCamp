@@ -69,7 +69,7 @@
                 // die(json_encode($respuesta));
                 $hashed_password = password_hash($password, PASSWORD_BCRYPT, $opciones);
                 # Los prepare stmts son más seguros para evitar inyección SQL., editado = NOW()
-                $stmt = $conn->prepare("INSERT INTO admins (usuario, nombre, password) VALUES (?, ?, ?)");
+                $stmt = $conn->prepare("INSERT INTO `admins` (usuario, nombre, password) VALUES (?, ?, ?)");
                 $stmt->bind_param("sss", $usuario, $nombre, $hashed_password);
                 $stmt->execute();
                 // Este if se puede cambiar por ($stmt->insert_id > 0) y no agrega el registro (sirvió para el usuario repetido)
