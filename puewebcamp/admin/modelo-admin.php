@@ -27,9 +27,14 @@
             if ($user['usuario'] === $usuario) {
                 $repetido = 1;
             }
+            $admin = array(
+                'respuesta' => $user['usuario']
+            );
         }
+        $usuarios = $admin;
         
-        if ($repetido > 0) {
+    
+        /*if ($repetido > 0) {
             // No se repiten nombres de usuarios.
             $respuesta = array(
                 'respuesta' => 'repetido'
@@ -37,7 +42,7 @@
     
             echo json_encode($respuesta);
     
-        } else {
+        } else {*/
             // Se repite un nombre de usuario.
             $opciones = array(
                 /*
@@ -47,40 +52,47 @@
                 'cost' => 12
             );
     
-            $hashed_password = password_hash($password, PASSWORD_BCRYPT, $opciones);
-    
+            
             try {
-                include_once 'funciones/funciones.php';
-                /* # Forma de comprobrar que sí se conectó a la Base de Datos.
-                    if ($conn->ping()) {
-                        echo "Conectado.";
+                require_once('funciones/funciones.php');
+                /* # Forma de comprobrar que sí se conectó a la Base de Datos.*/
+                    /*if ($conn->ping()) {
+                        $respuesta = array(
+                            'respuesta' => 'conectado'
+                        );
                     } else {
-                        echo "No estás conectado.";
-                    }
-                */
-                # Los prepare stmts son más seguros para evitar inyección SQL.
+                        $respuesta = array(
+                            'respuesta' => 'NO conectado'
+                        );
+                    }*/
+                        
+                // die(json_encode($respuesta));
+                $hashed_password = password_hash($password, PASSWORD_BCRYPT, $opciones);
+                # Los prepare stmts son más seguros para evitar inyección SQL., editado = NOW()
                 $stmt = $conn->prepare("INSERT INTO admins (usuario, nombre, password) VALUES (?, ?, ?)");
                 $stmt->bind_param("sss", $usuario, $nombre, $hashed_password);
                 $stmt->execute();
-                // Este if se puede cambiar por ($stmt->inser_id > 0) y no agrega el registro (sirvió para el usuario repetido)
-                if ($stmt->affected_rows) {
+                // Este if se puede cambiar por ($stmt->insert_id > 0) y no agrega el registro (sirvió para el usuario repetido)
+                if ($stmt->affected_rows > 0) {
                     $respuesta = array(
-                        'respuesta' => 'exito',
-                        'id_admin' => $stmt->insert_id
+                        'respuesta' => 'exito'
                     );
                 } else {
                     $respuesta = array(
-                        'respuesta' => 'error'
+                        'respuesta' => 'error1'
                     );
                 }
                 $stmt->close();
                 $conn->close();
             } catch (Exception $e) {
-                echo "Error " . $e->getMessage();
+                // echo "Error " . $e->getMessage();
+                $respuesta = array(
+                    'respuesta' => 'error2'
+                );
             }
     
             echo json_encode($respuesta);
-        }
+        //}
     }
 
     if ($_POST['registro'] == 'actualizar') {
@@ -131,9 +143,6 @@
             $stmt = $conn->prepare("DELETE FROM admins WHERE id_admin = ?");
             $stmt->bind_param("i", $id_borrar);
             $stmt->execute();
-            // bind_result(). Se utiliza cuando haces una consulta a la BD y te retorna en variables nuevas
-            // las variables que quieres ocupar.
-            $stmt->bind_result($id_admin, $usuario_admin, $nombre_admin, $password_admin, $editado);
             if ($stmt->affected_rows) {
                 $respuesta = array(
                     'respuesta' => 'exito',
@@ -154,59 +163,4 @@
     
             echo json_encode($respuesta);
     }
-
-
-    if (isset($_POST['login-admin'])) {
-        $usuario = $_POST['usuario'];
-        $password = $_POST['password'];
-
-        try {
-            include_once 'funciones/funciones.php';
-            $stmt = $conn->prepare("SELECT * FROM admins WHERE usuario = ?");
-            $stmt->bind_param("s", $usuario);
-            $stmt->execute();
-            // bind_result(). Se utiliza cuando haces una consulta a la BD y te retorna en variables nuevas
-            // las variables que quieres ocupar.
-            $stmt->bind_result($id_admin, $usuario_admin, $nombre_admin, $password_admin, $editado);
-            if ($stmt->affected_rows) {
-                // El fetch() es el que ya imprime los resultados.
-                $existe = $stmt->fetch();
-                if ($existe) {
-                    /* 
-                        password_verify(). Comprueba que el hash proporcionado coincida con la contraseña facilitada. Devuelve TRUE si la contraseña y el hash coinciden, o FALSE de lo contrario.
-                    */
-                    /* 
-                        Parámetros. 
-                        password: la contraseña del usuario.
-                        hash: un hash creado por password_hash().
-                    */
-                    if (password_verify($password, $password_admin)) {
-                        session_start();
-                        $_SESSION['usuario'] = $usuario_admin;
-                        $_SESSION['nombre'] = $nombre_admin;
-                        $respuesta = array(
-                            'respuesta' => 'exito',
-                            'usuario' => $nombre_admin
-                        );
-                    } else {
-                        $respuesta = array(
-                            'respuesta' => 'password_incorrecto'
-                        );
-                    }
-                } else {
-                    $respuesta = array(
-                        'respuesta' => 'no_existe'
-                    );
-                }
-            }
-            $stmt->close();
-            $conn->close();
-        } catch (Exception $e) {
-            echo "Error " . $e->getMessage();
-        }
-
-        echo json_encode($respuesta);
-    }
-
-
 ?>

@@ -24,6 +24,9 @@
 <!-- AdminLTE for demo purposes -->
 <script src="js/demo.js"></script>
 <!-- page script -->
-<script src="js/app.js">></script>
+<script src="js/app.js"></script>
+<!-- login-ajax -->
+<script src="js/login-ajax.js"></script>
+
 </body>
 </html>

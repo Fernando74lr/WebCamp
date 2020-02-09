@@ -14,6 +14,7 @@ $(document).ready(function () {
         */
         var datos = $(this).serializeArray();
         // Recorre los elementos para verificar si algo viene vacío.
+        console.log(datos);
         var vacio = false;
         var pagina_actual;
         datos.forEach(element => {
@@ -24,15 +25,19 @@ $(document).ready(function () {
                 pagina_actual = element.value;
             }
         });
-
+        console.log("1");
         // Si algo se envió vacío, pero estoy en editar-admin hace el llamado a AJAX.
         if (pagina_actual == 'editar-admin') {
             // Llamado a AJAX en JQuery.
+            console.log("2.1");
             ajaxRegistro(this, datos, false);
         } else {
+            console.log("2.2");
             if (vacio) {
+                console.log("2.3");
                 alert('error', 'vacio');
             } else {
+                console.log("2.4");
                 // Llamado a AJAX en JQuery
                 ajaxRegistro(this, datos, true);
             }
@@ -40,6 +45,7 @@ $(document).ready(function () {
     });
 
     function ajaxRegistro(element_this, datos, adminNuevo) {
+        console.log("2.5");
         // Llamado a AJAX en JQuery
         $.ajax({
             type: $(element_this).attr('method'), // Tipo de request que vamos a hacer.
@@ -48,17 +54,18 @@ $(document).ready(function () {
             dataType: "json", // Tipo de dato.
             success: function (data) {
                 var respuesta = data;
+                console.log(respuesta);
                 if (respuesta.respuesta == 'exito') {
                     // Limpia el formulario
                     $("#guardar-registro")[0].reset();
-                    
+
                     // Limpia el feedback anterior del password repetido.
-                    var campo_password = $('#password');
+                    /*var campo_password = $('#password');
                     var campo_repetir_password = $('#repetir_password');            
                     campo_password.removeClass('is-valid is-invalid');
                     campo_repetir_password.removeClass('is-valid is-invalid');
                     $('#resultado_password').removeClass('valid-feedback invalid-feedback');
-                    
+                    */
                     // Alerta que fue correcto el proceso.
                     if (adminNuevo) {
                         alert('success', 'creado');
@@ -120,53 +127,6 @@ $(document).ready(function () {
                 }
             });
         });
-    });
-
-    $("#login-admin").on('submit', function(e) {
-        e.preventDefault();
-
-        var datos = $(this).serializeArray();
-        
-        var vacio = 0;
-        datos.forEach(element => {
-            if (element.value === '') {
-                vacio++;
-            }
-        });
-
-        if (vacio > 0) {
-            alert('error', 'vacio');
-        } else {
-            $.ajax({
-                type: $(this).attr('method'), // Tipo de request que vamos a hacer.
-                url: $(this).attr('action'), // A dónde se van a ir los datos. En este caso es insertar-admin.php
-                data: datos, // Datos que quieres enviar a AJAX.
-                dataType: "json", // Tipo de dato.
-                success: function (data) {
-                    var respuesta = data;
-                    if (respuesta.respuesta == 'exito') {
-                        // Limpia el formulario
-                        $("#login-admin")[0].reset();
-                        // Alerta que fue correcto el proceso.
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Bienvenido(a), ' + respuesta.usuario + '.',
-                            text: 'Has accedido exitosamente a tu cuenta'
-                        })
-                        setTimeout(function() {
-                            // Redireccionar con JavaScript después de 2 segundos.
-                            window.location.href = 'admin-area.php'
-                        }, 2000);
-                    } else {
-                        // Alerta que hubo un error en el proceso.
-                        alert('error', 'credenciales');
-                    }
-                    
-                }
-            });
-        }
-
-
     });
 
     function alert(caso, tipo) {
