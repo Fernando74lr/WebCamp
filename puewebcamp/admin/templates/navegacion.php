@@ -17,7 +17,7 @@
           <img src="img/1.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Fernando López</a>
+          <a href="#" class="d-block"><?php echo $_SESSION['nombre']; ?></a>
         </div>
       </div>
 
@@ -143,6 +143,7 @@
             </ul>
           </li>
 
+          <?php if($_SESSION['nivel'] == 1): ?>
           <!--. Administradores -->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
@@ -154,19 +155,20 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="lista-admin.php" class="nav-link">
                   <i class="nav-icon fa fa-list-ul"></i>
                   <p>Ver todos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="crear-admin.php" class="nav-link">
                   <i class="nav-icon fa fa-plus-circle"></i>
                   <p>Agregar</p>
                 </a>
               </li>
             </ul>
           </li>
+          <?php endif; ?>
 
         <!--. Testimoniales -->
         <li class="nav-item has-treeview">

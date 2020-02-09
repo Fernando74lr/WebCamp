@@ -3,12 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Blank Page</title>
+  <title>PUEWEBCAMP | Admin</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- admin -->
+  <!-- DataTables -->
+  <link rel="stylesheet" href="dataTables/datatables-bs4/css/dataTables.bootstrap4.css">
+  <!-- Admin Css -->
   <link rel="stylesheet" href="css/admin.css">
+  <!-- Sweet Alert 2 -->
+  <link rel="stylesheet" href="css/sweetalert2.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="css/all.min.css">
   <!-- Ionicons -->
