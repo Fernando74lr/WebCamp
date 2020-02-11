@@ -68,10 +68,11 @@
     }
 
     if ($_POST['registro'] == 'eliminar') {
+
         $id_borrar = $_POST['id'];
         
         try {
-            $stmt = $conn->prepare("DELETE FROM admins WHERE id_admin = ?");
+            $stmt = $conn->prepare("DELETE FROM eventos WHERE evento_id = ?");
             $stmt->bind_param("i", $id_borrar);
             $stmt->execute();
             if ($stmt->affected_rows) {

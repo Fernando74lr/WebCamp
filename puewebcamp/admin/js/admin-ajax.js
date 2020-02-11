@@ -123,6 +123,7 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     var resultado = JSON.parse(data); // lo convierte a objeto de JS.
+                    console.log(resultado);
                     if (resultado.respuesta == 'exito') {
                         // Elimina registro.
                         Swal.fire(
