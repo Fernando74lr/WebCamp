@@ -148,7 +148,8 @@
                     </select>
                   </div>
                   <div class="card-footer">
-                    <input type="hidden" name="registro" value="nuevo">
+                    <input type="hidden" name="registro" value="actualizar">
+                    <input type="hidden" name="id_registro" value="<?php echo $id; ?>">
                     <input type="hidden" name="pagina_actual" value="<?php echo obtenerPaginaActual() ?>">
                     <button type="submit" class="btn btn-primary">Añadir</button>
                   </div>

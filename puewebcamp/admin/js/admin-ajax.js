@@ -13,6 +13,7 @@ $(document).ready(function () {
             con los datos en cada uno.
         */
         var datos = $(this).serializeArray();
+        console.log(datos);
         // Recorre los elementos para verificar si algo viene vacío.
         var vacio = false;
         var pagina_actual;
@@ -20,32 +21,36 @@ $(document).ready(function () {
             if (element.value === '') {
                 vacio = true;
             }
-            if (element.value === 'editar-admin' || element.value === 'crear-admin' || element.value === 'crear-evento') {
+            if (element.value === 'editar-admin' || element.value === 'crear-admin' || element.value === 'crear-evento' || element.value === 'editar-evento') {
                 pagina_actual = element.value;
             }
         });
-        console.log("1.-" + pagina_actual);
         // Si algo se envió vacío, pero estoy en editar-admin hace el llamado a AJAX.
-        if (pagina_actual == 'editar-admin') {
-            // Llamado a AJAX en JQuery. EDITANDO ADMIN
-            ajaxRegistro(this, datos, false, false);
+        if (pagina_actual == 'editar-admin' || pagina_actual == 'editar-evento') {
+            if (pagina_actual == 'editar-evento') {
+                // Llamado a AJAX en JQuery. EDITANDO EVENTO
+                ajaxRegistro(this, datos, false, false, true);
+            } else {
+                // Llamado a AJAX en JQuery. EDITANDO ADMIN
+                ajaxRegistro(this, datos, false, false, false);
+            }
+
         } else {
             if (vacio) {
                 alert('error', 'vacio');
             } else {
-                console.log("2.-" + pagina_actual);
                 if (pagina_actual == 'crear-evento') {
                     // Llamado a AJAX en JQuery. CREANDO EVENTO.
-                    ajaxRegistro(this, datos, false, true);
+                    ajaxRegistro(this, datos, false, true, false);
                 } else {
                     // Llamado a AJAX en JQuery. CREANDO ADMIN
-                    ajaxRegistro(this, datos, true, false);
+                    ajaxRegistro(this, datos, true, false, false);
                 }
             }
         }
     });
 
-    function ajaxRegistro(element_this, datos, adminNuevo, eventoNuevo) {
+    function ajaxRegistro(element_this, datos, adminNuevo, eventoNuevo, eventoEditado) {
         // Llamado a AJAX en JQuery
         $.ajax({
             type: $(element_this).attr('method'), // Tipo de request que vamos a hacer.
@@ -73,7 +78,11 @@ $(document).ready(function () {
                         if (eventoNuevo) {
                             alert('success', 'eventoCreado');
                         } else {
-                            alert('success', 'adminEditado');
+                            if (eventoEditado) {
+                                alert('success', 'eventoEditado');
+                            } else {
+                                alert('success', 'adminEditado');
+                            }
                         }
                     }
                 } else {
@@ -176,8 +185,13 @@ $(document).ready(function () {
                     break;
 
                 case 'eventoCreado':
-                    titulo = 'Evento creado!';
+                    titulo = '¡Evento creado!';
                     descripcion = 'El evento fue creado exitosamente';
+                    break;
+
+                case 'eventoEditado':
+                    titulo = '¡Evento editado!';
+                    descripcion = 'El evento fue editado exitosamente';
                     break;
 
                 default:
