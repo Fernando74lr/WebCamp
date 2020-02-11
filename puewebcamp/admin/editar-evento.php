@@ -35,12 +35,17 @@
               <h3 class="card-title">Editar evento</h3>
             </div>
             <div class="card-body">
+              <?php
+                $sql = "SELECT * FROM eventos WHERE evento_id = $id";
+                $resultado = $conn->query($sql);
+                $evento = $resultado->fetch_assoc();
+              ?>
               <form role="form" name="guardar-registro" id="guardar-registro" method="post" action="modelo-evento.php">
                 <div class="card-body">
                   <!-- Título del evento -->
                   <div class="form-group">
                     <label for="nombre">Titulo evento:</label>
-                    <input type="text" class="form-control" id="titulo_evento" name="titulo_evento" placeholder="Título del evento">
+                    <input type="text" class="form-control" id="titulo_evento" name="titulo_evento" placeholder="Título del evento" value="<?php echo $evento['nombre_evento']; ?>">
                   </div>
                   
                   <!-- Categoría del evento -->
@@ -50,13 +55,20 @@
                         <option value="0"> -- Seleccione -- </option>
                         <?php
                             try {
+                              $categoria_actual = $evento['id_cat_evento'];
                                 $sql = "SELECT * FROM categoria_evento ";
                                 $resultado = $conn->query($sql);
-                                while ($cat_evento = $resultado->fetch_assoc()) { ?>
-                                    <option value="<?php echo $cat_evento['id_categoria']; ?>">
+                                while ($cat_evento = $resultado->fetch_assoc()) { 
+                                  if ($cat_evento['id_categoria'] == $categoria_actual) { ?>
+                                    <option value="<?php echo $cat_evento['id_categoria']; ?>" selected>
                                         <?php echo $cat_evento['cat_evento']; ?>
                                     </option>
-                                <?php }
+                                <?php } else { ?>
+                                    <option value="<?php echo $cat_evento['id_categoria']; ?>">
+                                    <?php echo $cat_evento['cat_evento']; ?>
+                                    </option>
+                                <?php  }
+                                }
                             } catch (Exception $e) {
                                 echo "Error: " . $e->getMessage();
                             }
@@ -67,11 +79,17 @@
                   <!-- Fecha del evento -->
                   <div class="form-group">
                     <label>Fecha evento:</label>
+                    <?php
+                      // Obtener la fecha
+                      $fecha = $evento['fecha_evento'];
+                      $fecha_separada = explode("-", $fecha);
+                      $fecha_formateada = $fecha_separada[2] . '/' . $fecha_separada[1] . '/' . $fecha_separada[0];
+                    ?>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                         </div>
-                        <input type="text" placeholder="dd/mm/yyyy" name="fecha_evento" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                        <input type="text" placeholder="dd/mm/yyyy" name="fecha_evento" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask value="<?php echo $fecha_formateada; ?>">
                     </div>
                   </div>
 
@@ -79,8 +97,21 @@
                   <div class="bootstrap-timepicker">
                     <div class="form-group">
                         <label>Hora:</label>
+                        <?php
+                          // Obtener la hora
+                          $hora = $evento['hora_evento'];
+                          $hora_formato = date('h:i a', strtotime($hora));
+
+                          // Otra forma de hacerlo sin la función date() ni strtotime()
+                          /*$hora_separada = explode(":", $hora);
+                          if ((int) $hora_separada[0] < 12) {
+                            $hora_formateada = $hora_separada[0] . ':' . $hora_separada[1] . ' AM';
+                          } else {
+                            $hora_formateada = $hora_separada[0] . ':' . $hora_separada[1] . ' PM';
+                          }*/
+                        ?>
                         <div class="input-group date" id="timepicker" data-target-input="nearest">
-                            <input type="text" name="hora_evento" class="form-control datetimepicker-input" data-target="#timepicker"/>
+                            <input type="text" name="hora_evento" class="form-control datetimepicker-input" data-target="#timepicker" value="<?php echo $hora_formato; ?>"/>
                             <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="far fa-clock"></i></div>
                             </div>
@@ -96,15 +127,22 @@
                         <option value="0"> -- Seleccione -- </option>
                         <?php
                             try {
-                                $sql = "SELECT invitado_id, nombre_invitado, apellido_invitado FROM invitados ";
-                                $resultado = $conn->query($sql);
-                                while ($invitados = $resultado->fetch_assoc()) { ?>
-                                    <option value="<?php echo $invitados['invitado_id']; ?>">
-                                        <?php echo $invitados['nombre_invitado'] . ' ' . $invitados['apellido_invitado']?>
-                                    </option>
-                                <?php }
+                              $invitado_actual = $evento['id_inv'];
+                              $sql = "SELECT invitado_id, nombre_invitado, apellido_invitado FROM invitados ";
+                              $resultado = $conn->query($sql);
+                              while ($invitados = $resultado->fetch_assoc()) {
+                                if ($invitados['invitado_id'] == $invitado_actual) { ?>
+                                  <option value="<?php echo $invitados['invitado_id']; ?>" selected>
+                                    <?php echo $invitados['nombre_invitado'] . ' ' . $invitados['apellido_invitado']?>
+                                  </option>
+                                <?php } else { ?>
+                                  <option value="<?php echo $invitados['invitado_id']; ?>">
+                                    <?php echo $invitados['nombre_invitado'] . ' ' . $invitados['apellido_invitado']?>
+                                  </option>
+                                <?php } // Fin del if
+                              } // Fin del while
                             } catch (Exception $e) {
-                                echo "Error: " . $e->getMessage();
+                              echo "Error: " . $e->getMessage();
                             }
                         ?>
                     </select>
