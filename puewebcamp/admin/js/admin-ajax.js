@@ -21,36 +21,44 @@ $(document).ready(function () {
             if (element.value === '') {
                 vacio = true;
             }
-            if (element.value === 'editar-admin' || element.value === 'crear-admin' || element.value === 'crear-evento' || element.value === 'editar-evento') {
+            if (element.value === 'editar-admin' || element.value === 'crear-admin' || element.value === 'crear-evento' || element.value === 'editar-evento'  || element.value === 'crear-categoria' || element.value === 'editar-categoria') {
                 pagina_actual = element.value;
             }
         });
+        
         // Si algo se envió vacío, pero estoy en editar-admin hace el llamado a AJAX.
-        if (pagina_actual == 'editar-admin' || pagina_actual == 'editar-evento') {
-            if (pagina_actual == 'editar-evento') {
-                // Llamado a AJAX en JQuery. EDITANDO EVENTO
-                ajaxRegistro(this, datos, false, false, true);
-            } else {
-                // Llamado a AJAX en JQuery. EDITANDO ADMIN
-                ajaxRegistro(this, datos, false, false, false);
-            }
+        switch (pagina_actual) {
+            case 'crear-admin':
+                ajaxRegistro(this, datos, 'crear-admin');
+                break;
 
-        } else {
-            if (vacio) {
-                alert('error', 'vacio');
-            } else {
-                if (pagina_actual == 'crear-evento') {
-                    // Llamado a AJAX en JQuery. CREANDO EVENTO.
-                    ajaxRegistro(this, datos, false, true, false);
-                } else {
-                    // Llamado a AJAX en JQuery. CREANDO ADMIN
-                    ajaxRegistro(this, datos, true, false, false);
-                }
-            }
+            case 'editar-admin':
+                ajaxRegistro(this, datos, 'editar-admin');
+                break;
+
+            case 'crear-evento':
+                ajaxRegistro(this, datos, 'crear-evento');
+                break;
+
+            case 'editar-evento':
+                ajaxRegistro(this, datos, 'editar-evento');
+                break;
+
+            case 'crear-categoria':
+                ajaxRegistro(this, datos, 'crear-categoria');
+                break;
+
+            case 'editar-categoria':
+                ajaxRegistro(this, datos, 'editar-categoria');
+                break;
+                                                
+            default:
+                alert('success', 'generico')
+                break;
         }
     });
 
-    function ajaxRegistro(element_this, datos, adminNuevo, eventoNuevo, eventoEditado) {
+    function ajaxRegistro(element_this, datos, pagina_actual) {
         // Llamado a AJAX en JQuery
         $.ajax({
             type: $(element_this).attr('method'), // Tipo de request que vamos a hacer.
@@ -71,19 +79,29 @@ $(document).ready(function () {
                     campo_repetir_password.removeClass('is-valid is-invalid');
                     $('#resultado_password').removeClass('valid-feedback invalid-feedback');
 
-                    // Alerta que fue correcto el proceso.
-                    if (adminNuevo) {
-                        alert('success', 'adminCreado');
-                    } else {
-                        if (eventoNuevo) {
+                    switch (pagina_actual) {
+                        case 'crear-admin':
+                            alert('success', 'adminCreado')
+                            break;
+                        case 'editar-admin':
+                            alert('success', 'adminEditado');
+                            break;
+                        case 'crear-evento':
                             alert('success', 'eventoCreado');
-                        } else {
-                            if (eventoEditado) {
-                                alert('success', 'eventoEditado');
-                            } else {
-                                alert('success', 'adminEditado');
-                            }
-                        }
+                            break;
+                        case 'editar-evento':
+                            alert('success', 'eventoEditado');
+                            break;
+                        case 'crear-categoria':
+                            alert('success', 'categoriaCreada');
+                            break;
+                        case 'editar-categoria':
+                            alert('success', 'categoriaEditada');
+                            break;
+                                                            
+                        default:
+                            alert('success', 'generico')
+                            break;
                     }
                 } else {
                     if(respuesta.respuesta == 'repetido') {
@@ -175,6 +193,11 @@ $(document).ready(function () {
             }
         } else if (caso === 'success') {
             switch (tipo) {
+                case 'generico':
+                    titulo = 'Listo';
+                    descripcion = 'Tarea realizada con éxito';           
+                    break;
+
                 case 'adminCreado':
                     titulo = '¡Admin creado!';
                     descripcion = 'El administrador fue creado exitosamente';
@@ -195,9 +218,19 @@ $(document).ready(function () {
                     descripcion = 'El evento fue editado exitosamente';
                     break;
 
+                case 'categoriaCreada':
+                    titulo = 'Categoria creada!';
+                    descripcion = 'La categoria fue creada exitosamente';
+                    break;
+
+                case 'categoriaEditada':
+                    titulo = 'Categoria editada!';
+                    descripcion = 'La categoria fue editada exitosamente';
+                    break;
+
                 default:
-                    titulo = 'Oops...';
-                    descripcion = 'Algo salió mal, intenta de nuevo';
+                    titulo = 'Listo';
+                    descripcion = 'Tarea realizada con éxito';
                     break;
             }
         }
