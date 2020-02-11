@@ -15,7 +15,6 @@ $(document).ready(function () {
         var datos = $(this).serializeArray();
         console.log(datos);
         // Recorre los elementos para verificar si algo viene vacío.
-        var vacio = false;
         var pagina_actual;
         datos.forEach(element => {
             if (element.value === '') {
@@ -219,13 +218,13 @@ $(document).ready(function () {
                     break;
 
                 case 'categoriaCreada':
-                    titulo = 'Categoria creada!';
-                    descripcion = 'La categoria fue creada exitosamente';
+                    titulo = '¡Categoría creada!';
+                    descripcion = 'La categoría fue creada exitosamente';
                     break;
 
                 case 'categoriaEditada':
-                    titulo = 'Categoria editada!';
-                    descripcion = 'La categoria fue editada exitosamente';
+                    titulo = '¡Categoría editada!';
+                    descripcion = 'La categoría fue editada exitosamente';
                     break;
 
                 default:

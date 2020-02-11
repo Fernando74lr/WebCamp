@@ -53,7 +53,7 @@
                         <td><i class="fa <?php echo $categoria['icono']; ?>" style="font-size:1.5em;"></i></td>
                         <td>
                             <a 
-                              href="editar-admin.php?id=<?php echo $categoria['id_categoria'] ?>"
+                              href="editar-categoria.php?id=<?php echo $categoria['id_categoria'] ?>"
                               class="btn bg-orange btn-flat margin">
                               <i class="fas fa-pencil-alt"></i>
                             </a>
