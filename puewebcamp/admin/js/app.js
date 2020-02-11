@@ -24,7 +24,7 @@ $(function () {
     });
 });
 
-$('#crear_registro').attr('disabled', true);
+$('#crear_registro_admin').attr('disabled', true);
 
 $('#repetir_password').on('keyup', function() {
   var password_nuevo = $('#password').val(); // valor del password nuevo
@@ -41,7 +41,7 @@ $('#repetir_password').on('keyup', function() {
       campo_password.addClass('is-valid');
       campo_repetir_password.addClass('is-valid');
       $('#resultado_password').addClass('valid-feedback');
-      $('#crear_registro').attr('disabled', false);
+      $('#crear_registro_admin').attr('disabled', false);
 
   } else { // Passwords distintos
 
@@ -49,7 +49,22 @@ $('#repetir_password').on('keyup', function() {
       campo_password.addClass('is-invalid');
       campo_repetir_password.addClass('is-invalid');
       $('#resultado_password').addClass('invalid-feedback');
-      $('#crear_registro').attr('disabled', true);
+      $('#crear_registro_admin').attr('disabled', true);
   }
 
+});
+
+$(function () {
+
+  //Initialize Select2 Elements
+  $('.seleccionar').select2();
+
+  //Initialize Select2 Elements
+  $('.select2bs4').select2({
+    theme: 'bootstrap4'
+  });
+
+  // Date picker - form | Datemask dd/mm/yyyy
+  $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/aaaa' });
+  $('[data-mask]').inputmask();
 });

@@ -53,7 +53,8 @@
                 </div> <!-- /.card-body -->
                 <div class="card-footer">
                   <input type="hidden" name="registro" value="nuevo">
-                  <button type="submit" class="btn btn-primary" id="crear_registro">Añadir</button>
+                  <input type="hidden" name="pagina_actual" value="<?php echo obtenerPaginaActual() ?>">
+                  <button type="submit" class="btn btn-primary" id="crear_registro_admin">Añadir</button>
                 </div>
               </form>
             </div> <!-- /.card-body -->

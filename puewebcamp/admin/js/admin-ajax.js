@@ -13,39 +13,44 @@ $(document).ready(function () {
             con los datos en cada uno.
         */
         var datos = $(this).serializeArray();
-        // Recorre los elementos para verificar si algo viene vacío.
         console.log(datos);
+        // Recorre los elementos para verificar si algo viene vacío.
         var vacio = false;
         var pagina_actual;
         datos.forEach(element => {
             if (element.value === '') {
                 vacio = true;
             }
-            if (element.value === 'editar-admin') {
+            if (element.value === 'editar-admin' || element.value === 'crear-admin' || element.value === 'crear-evento' || element.value === 'editar-evento') {
                 pagina_actual = element.value;
             }
         });
-        console.log("1");
         // Si algo se envió vacío, pero estoy en editar-admin hace el llamado a AJAX.
-        if (pagina_actual == 'editar-admin') {
-            // Llamado a AJAX en JQuery.
-            console.log("2.1");
-            ajaxRegistro(this, datos, false);
+        if (pagina_actual == 'editar-admin' || pagina_actual == 'editar-evento') {
+            if (pagina_actual == 'editar-evento') {
+                // Llamado a AJAX en JQuery. EDITANDO EVENTO
+                ajaxRegistro(this, datos, false, false, true);
+            } else {
+                // Llamado a AJAX en JQuery. EDITANDO ADMIN
+                ajaxRegistro(this, datos, false, false, false);
+            }
+
         } else {
-            console.log("2.2");
             if (vacio) {
-                console.log("2.3");
                 alert('error', 'vacio');
             } else {
-                console.log("2.4");
-                // Llamado a AJAX en JQuery
-                ajaxRegistro(this, datos, true);
+                if (pagina_actual == 'crear-evento') {
+                    // Llamado a AJAX en JQuery. CREANDO EVENTO.
+                    ajaxRegistro(this, datos, false, true, false);
+                } else {
+                    // Llamado a AJAX en JQuery. CREANDO ADMIN
+                    ajaxRegistro(this, datos, true, false, false);
+                }
             }
         }
     });
 
-    function ajaxRegistro(element_this, datos, adminNuevo) {
-        console.log("2.5");
+    function ajaxRegistro(element_this, datos, adminNuevo, eventoNuevo, eventoEditado) {
         // Llamado a AJAX en JQuery
         $.ajax({
             type: $(element_this).attr('method'), // Tipo de request que vamos a hacer.
@@ -60,17 +65,25 @@ $(document).ready(function () {
                     $("#guardar-registro")[0].reset();
 
                     // Limpia el feedback anterior del password repetido.
-                    /*var campo_password = $('#password');
+                    var campo_password = $('#password');
                     var campo_repetir_password = $('#repetir_password');            
                     campo_password.removeClass('is-valid is-invalid');
                     campo_repetir_password.removeClass('is-valid is-invalid');
                     $('#resultado_password').removeClass('valid-feedback invalid-feedback');
-                    */
+
                     // Alerta que fue correcto el proceso.
                     if (adminNuevo) {
-                        alert('success', 'creado');
+                        alert('success', 'adminCreado');
                     } else {
-                        alert('success', 'editado');
+                        if (eventoNuevo) {
+                            alert('success', 'eventoCreado');
+                        } else {
+                            if (eventoEditado) {
+                                alert('success', 'eventoEditado');
+                            } else {
+                                alert('success', 'adminEditado');
+                            }
+                        }
                     }
                 } else {
                     if(respuesta.respuesta == 'repetido') {
@@ -110,6 +123,7 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     var resultado = JSON.parse(data); // lo convierte a objeto de JS.
+                    console.log(resultado);
                     if (resultado.respuesta == 'exito') {
                         // Elimina registro.
                         Swal.fire(
@@ -161,14 +175,24 @@ $(document).ready(function () {
             }
         } else if (caso === 'success') {
             switch (tipo) {
-                case 'creado':
+                case 'adminCreado':
                     titulo = '¡Admin creado!';
                     descripcion = 'El administrador fue creado exitosamente';
                     break;
     
-                case 'editado':
+                case 'adminEditado':
                     titulo = '¡Admin editado!';
                     descripcion = 'El administrador fue modificado exitosamente';
+                    break;
+
+                case 'eventoCreado':
+                    titulo = '¡Evento creado!';
+                    descripcion = 'El evento fue creado exitosamente';
+                    break;
+
+                case 'eventoEditado':
+                    titulo = '¡Evento editado!';
+                    descripcion = 'El evento fue editado exitosamente';
                     break;
 
                 default:
