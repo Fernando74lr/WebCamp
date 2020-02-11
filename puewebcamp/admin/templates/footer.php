@@ -32,5 +32,7 @@
 <!-- InputMask -->
 <script src="js/moment.min.js"></script>
 <script src="js/jquery.inputmask.bundle.min.js"></script>
+<!-- Font Awesome picker -->
+<script src="js/fontawesome-iconpicker.min.js"></script>
 </body>
 </html>

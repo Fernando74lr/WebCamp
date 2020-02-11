@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="css/sweetalert2.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="css/fontawesome-iconpicker.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- overlayScrollbars -->
