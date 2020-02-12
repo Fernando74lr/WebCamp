@@ -31,7 +31,8 @@
               <h3 class="card-title">Crear Invitados</h3>
             </div>
             <div class="card-body">
-              <form role="form" name="guardar-registro" id="guardar-registro" method="post" action="modelo-categoria.php">
+                <!-- Se utiliza siempre que se quieran subir archivos o imágenes: enctype="multipart/form-data" -->
+              <form role="form" name="guardar-registro" id="guardar-registro-archivo" method="post" action="modelo-invitado.php" enctype="multipart/form-data">
                 <div class="card-body">
                     <!-- Nombre -->
                   <div class="form-group">
