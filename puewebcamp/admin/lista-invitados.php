@@ -51,14 +51,15 @@
                     while ($invitado = $resultado->fetch_assoc()) { ?>
                       <tr>
                         <td><?php echo $invitado['nombre_invitado'] . " " . $invitado['apellido_invitado']; ?></td>
-                        <td><?php echo $invitado['descripcion']; ?>"</td>
-                        <td><?php echo $invitado['url_imagen']; ?>"</td>
+                        <td><?php echo $invitado['descripcion']; ?></td>
+                        <td><?php echo $invitado['url_imagen']; ?></td>
                         <td>
                             <a 
                               href="editar-categoria.php?id=<?php echo $invitado['id_categoria'] ?>"
                               class="btn bg-orange btn-flat margin">
                               <i class="fas fa-pencil-alt"></i>
                             </a>
+                            <br>
                             <br>
                             <a 
                               href="#"

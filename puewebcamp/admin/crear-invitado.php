@@ -14,8 +14,8 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Crear Categorías de Eventos</h1>
-            <small>Llena el formulario para crear una categoría</small>
+            <h1>Crear Invitados</h1>
+            <small>Llena el formulario para crear un invitado</small>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -28,18 +28,38 @@
           <!-- Default box -->
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Crear Categorías de Eventos</h3>
+              <h3 class="card-title">Crear Invitados</h3>
             </div>
             <div class="card-body">
               <form role="form" name="guardar-registro" id="guardar-registro" method="post" action="modelo-categoria.php">
                 <div class="card-body">
+                    <!-- Nombre -->
                   <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre_categoria" name="nombre_categoria" placeholder="Categoría">
+                    <label for="nombre_invitado">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre_invitado" name="nombre_invitado" placeholder="Nombre">
                   </div>
+
+                  <!-- Apellido -->
                   <div class="form-group">
-                    <label for="">Icono:</label>
-                        <input type="text" id="icono" name="icono" class="form-control pull-right" placeholder="fa-icon">
+                    <label for="apellido_invitado">Apellido:</label>
+                    <input type="text" class="form-control" id="apellido_invitado" name="apellido_invitado" placeholder="Apellido">
+                  </div>
+
+                  <!-- Apellido -->
+                  <div class="form-group">
+                    <label for="biografia_invitado">Apellido:</label>
+                    <textarea class="form-control" name="biografia_invitado" id="biografia_invitado" rows="8" placeholder="Biografía"></textarea>
+                  </div>
+
+                  <!-- Imagen -->
+                  <div class="form-group">
+                    <label for="imagen_invitado">Imagen</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" name="archivo_imagen" class="custom-file-input" id="imagen_invitado">
+                        <label class="custom-file-label" for="imagen_invitado">Elegir imagen</label>
+                      </div>
+                    </div>
                   </div>
                 </div> <!-- /.card-body -->
                 <div class="card-footer">
