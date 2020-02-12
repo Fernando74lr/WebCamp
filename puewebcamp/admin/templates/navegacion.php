@@ -104,13 +104,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="lista-invitados.php" class="nav-link">
                   <i class="nav-icon fa fa-list-ul"></i>
                   <p>Ver todos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="crear-invitado" class="nav-link">
                   <i class="nav-icon fa fa-plus-circle"></i>
                   <p>Agregar</p>
                 </a>
