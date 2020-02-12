@@ -84,9 +84,9 @@ if (!filter_var($id, FILTER_VALIDATE_INT)) {
                 </div> <!-- /.card-body -->
                 <div class="card-footer">
                   <input type="hidden" name="registro" value="actualizar">
-                  <input type="hidden" name="registro" value="<?php echo $invitado['invitado_id']; ?>">
+                  <input type="hidden" name="id_registro" value="<?php echo $invitado['invitado_id']; ?>">
                   <input type="hidden" name="pagina_actual" value="<?php echo obtenerPaginaActual() ?>">
-                  <button type="submit" class="btn btn-primary" id="crear_registro">Añadir</button>
+                  <button type="submit" class="btn btn-primary" id="crear_registro">Guardar</button>
                 </div>
               </form>
             </div> <!-- /.card-body -->

@@ -15,7 +15,7 @@
         <li>
             <div class="invitado">
                 <a class="invitado-info" href="#invitado<?php echo $invitados['invitado_id']; ?>">
-                    <img src="img/<?php echo $invitados['url_imagen'] ?>" alt="imagen invitado 1">
+                    <img src="img/invitados/<?php echo $invitados['url_imagen'] ?>" alt="imagen invitado 1">
                     <p><?php echo $invitados['nombre_invitado'] .' '. $invitados['apellido_invitado']?> </p>
                 </a>
             </div>
@@ -23,7 +23,7 @@
         <div style="display:none;">
             <div class="invitado-info" id="invitado<?php echo $invitados['invitado_id']; ?>" >
                 <h2><?php echo $invitados['nombre_invitado'] . ' ' . $invitados['apellido_invitado'] ?></h2>
-                <img src="img/<?php echo $invitados['url_imagen'] ?>" alt="imagen invitado 1">
+                <img src="img/invitados/<?php echo $invitados['url_imagen'] ?>" alt="imagen invitado 1" width="500">
                 <p><?php echo $invitados['descripcion'] ?></p>
             </div>
         </div>
