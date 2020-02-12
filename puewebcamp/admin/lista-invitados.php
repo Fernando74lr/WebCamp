@@ -55,7 +55,7 @@
                         <td><?php echo $invitado['url_imagen']; ?></td>
                         <td>
                             <a 
-                              href="editar-categoria.php?id=<?php echo $invitado['id_categoria'] ?>"
+                              href="editar-invitado.php?id=<?php echo $invitado['invitado_id'] ?>"
                               class="btn bg-orange btn-flat margin">
                               <i class="fas fa-pencil-alt"></i>
                             </a>
@@ -63,8 +63,8 @@
                             <br>
                             <a 
                               href="#"
-                              data-id="<?php echo $invitado['id_categoria'] ?>"
-                              data-tipo="categoria"
+                              data-id="<?php echo $invitado['invitado_id'] ?>"
+                              data-tipo="invitado"
                               class="btn bg-maroon btn-flat margin borrar_registro">
                               <i class="fas fa-trash"></i>
                             </a>
