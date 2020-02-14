@@ -16,6 +16,7 @@ $(document).ready(function () {
         console.log(datos);
         // Recorre los elementos para verificar si algo viene vacío.
         var pagina_actual;
+        var vacio = false;
         datos.forEach(element => {
             if (element.value === '') {
                 vacio = true;
@@ -24,37 +25,77 @@ $(document).ready(function () {
                 pagina_actual = element.value;
             }
         });
-        
-        // Si algo se envió vacío, pero estoy en editar-admin hace el llamado a AJAX.
-        switch (pagina_actual) {
-            case 'crear-admin':
-                ajaxRegistro(this, datos, 'crear-admin');
-                break;
+        if (vacio) {
+            alert('error', 'vacio');
+        } else {
+            // Llamado a AJAX.
+            switch (pagina_actual) {
+                case 'crear-admin':
+                    ajaxRegistro(this, datos, 'crear-admin');
+                    break;
 
-            case 'editar-admin':
-                ajaxRegistro(this, datos, 'editar-admin');
-                break;
+                case 'editar-admin':
+                    ajaxRegistro(this, datos, 'editar-admin');
+                    break;
 
-            case 'crear-evento':
-                ajaxRegistro(this, datos, 'crear-evento');
-                break;
+                case 'crear-evento':
+                    ajaxRegistro(this, datos, 'crear-evento');
+                    break;
 
-            case 'editar-evento':
-                ajaxRegistro(this, datos, 'editar-evento');
-                break;
+                case 'editar-evento':
+                    ajaxRegistro(this, datos, 'editar-evento');
+                    break;
 
-            case 'crear-categoria':
-                ajaxRegistro(this, datos, 'crear-categoria');
-                break;
+                case 'crear-categoria':
+                    ajaxRegistro(this, datos, 'crear-categoria');
+                    break;
 
-            case 'editar-categoria':
-                ajaxRegistro(this, datos, 'editar-categoria');
-                break;
-                                                
-            default:
-                alert('success', 'generico')
-                break;
+                case 'editar-categoria':
+                    ajaxRegistro(this, datos, 'editar-categoria');
+                    break;
+                                                    
+                default:
+                    alert('success', 'generico')
+                    break;
+            }
         }
+    });
+
+    // Se ejecuta cuando hay archivos.
+    /* SIEMPRE SE UTILIZA FORMDATA() EN ARCHIVOS Y LA CONFIG. DE AJAX COMO SE MUESTRA */
+    /* CUANDO SÓLO SON DATOS, SERIALIZE() ESTÁ BIEN PARA USAR (COMO LA FUNCIÓN DE ARRIBA) */
+    $("#guardar-registro-archivo").on('submit', function(e) {
+        e.preventDefault();
+        var datos = new FormData(this);
+        // Llamado a AJAX en JQuery
+        $.ajax({
+            type: $(this).attr('method'), // Tipo de request que vamos a hacer.
+            url: $(this).attr('action'), // A dónde se van a ir los datos. En este caso es modelo-admin.php
+            data: datos, // Datos que quieres enviar a AJAX.
+            dataType: "json", // Tipo de dato.
+            // Ajustes que se deben de hacer cuando se manejan archivos.
+            contentType: false, // 1.
+            processData: false, // 2.
+            async: true, // 3.
+            cache: false, // 4.
+            success: function (data) {
+                var respuesta = data;
+                console.log(respuesta);
+                if (respuesta.respuesta == 'exito') {
+                    if (respuesta.actualizado == 'actualizado') {
+                        alert('success', 'invitadoEditado');
+                    } else {
+                        // Limpia el formulario
+                        $("#guardar-registro-archivo")[0].reset();
+                        // Alerta
+                        alert('success', 'invitadoCreado');
+                    }
+                } else {
+                    // Alerta
+                    alert('error', 'generico');
+                }
+            }
+        });
     });
 
     function ajaxRegistro(element_this, datos, pagina_actual) {
@@ -115,6 +156,7 @@ $(document).ready(function () {
         });
     }
 
+
     $('.borrar_registro').on('click', function(e) {
         e.preventDefault();
         var id = $(this).attr('data-id');
@@ -145,7 +187,7 @@ $(document).ready(function () {
                         // Elimina registro.
                         Swal.fire(
                             '¡Eliminado!',
-                            'El usuario fue eliminado',
+                            'El registro fue eliminado',
                             'success'
                         );
 
@@ -225,6 +267,16 @@ $(document).ready(function () {
                 case 'categoriaEditada':
                     titulo = '¡Categoría editada!';
                     descripcion = 'La categoría fue editada exitosamente';
+                    break;
+
+                case 'invitadoCreado':
+                    titulo = '¡Invitado creado!';
+                    descripcion = 'El invitado fue creado exitosamente';
+                    break;
+
+                case 'invitadoEditado':
+                    titulo = '¡Invitado editado!';
+                    descripcion = 'El invitado fue editado exitosamente';
                     break;
 
                 default:
