@@ -31,7 +31,7 @@
             $resultado = $conn->query($sql);
             $registrados = $resultado->fetch_assoc();          
           ?>
-          <!-- small card -->
+          <!-- Registrados -->
           <div class="small-box bg-info">
             <div class="inner">
               <h3><?php echo $registrados['registros']; ?></h3>

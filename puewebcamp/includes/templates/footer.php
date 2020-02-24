@@ -5,12 +5,8 @@
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil iste possimus illum. Consequatur magni odit animi necessitatibus dolorem vero corporis repellendus magnam non maiores. Veritatis odit exercitationem voluptatum minus inventore.</p>
       </div>
       <div class="ultimos-tweets">
-          <h3>Últimos <span>tweets</span></h3>
-          <ul>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil iste possimus illum.</li>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil iste possimus illum.</li>
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil iste possimus illum.</li>
-          </ul>
+          <h3>Algunos <span>memes</span></h3>
+          <a class="twitter-timeline" data-height="400" data-theme="light" href="https://twitter.com/Guarromantico_?ref_src=twsrc%5Etfw">Tweets by Guarromantico_</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
       </div>
       <div class="menu">
           <h3>Redes <span>sociales</span></h3>
@@ -25,7 +21,7 @@
     </div>
 
     <p class="copyright">
-      Todos los derechos reservados PUEWEBCAMP 2018.
+      Todos los derechos reservados PUEWEBCAMP 2020.
     </p>
 
     <!-- Begin Mailchimp Signup Form -->
